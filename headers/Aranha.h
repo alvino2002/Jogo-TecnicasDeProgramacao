@@ -11,16 +11,15 @@ namespace Entidades
 		class Aranha : public Inimigo
 		{
 		private:
-			int mordida;
-			int veneno;
+			short int mordida;
+			short int veneno;
 
 		public:
-			Aranha
-			(
-			    sf::Vector2f tamanho,
+			Aranha(
+				sf::Vector2f tamanho,
 				sf::Vector2f posicaoInicial,
 				sf::Vector2f velocidade,
-				int vida, 
+				int vida,
 				sf::Vector2f alcance
 			);
 			~Aranha();
