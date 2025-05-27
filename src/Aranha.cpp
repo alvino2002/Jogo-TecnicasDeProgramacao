@@ -1,7 +1,6 @@
 #include "Aranha.h"
 #include <iostream>
 
-
 namespace Entidades
 {
 	namespace Personagens
@@ -10,9 +9,9 @@ namespace Entidades
 			sf::Vector2f tamanho,
 			sf::Vector2f posicaoInicial,
 			sf::Vector2f velocidade,
-			int vida, 
+			int vida,
 			sf::Vector2f alcance
-			):
+		):
 			Inimigo(tamanho, posicaoInicial, velocidade, vida, alcance),
 			mordida(2),
 			veneno(1)
@@ -33,9 +32,10 @@ namespace Entidades
 
 			perseguir(); // Persegue o jogador
 
-			if (vida == 0)
+			if (vida == 0) // Aranha eliminada
 			{
 				setVivo(false);
+				std::cout << "Aranha morta" << std::endl;
 			}
 		}
 
@@ -67,16 +67,18 @@ namespace Entidades
 
 		void Aranha::interagir() // Ocorreu a colisao com o jogador
 		{
-			if (pJogador->getEstaAtacando())
+			Entidades::Personagens::Cavaleiro* cavaleiro = dynamic_cast<Entidades::Personagens::Cavaleiro*>(pJogador);
+
+			if (cavaleiro && cavaleiro->getEstaAtacando()) // Cavaleiro atacando??
 			{
-				setVida(vida - pJogador->getDano());
-				aplicarVeneno(); // Ao tomar dano, aplica veneno ao jogador;
-				pJogador->setEstaAtacando(false);
+				setVida(vida - cavaleiro->getDano());
+				aplicarVeneno(); // Ao tomar dano, aplica veneno ao atacante
+				cavaleiro->setEstaAtacando(false);
 			}
+
 			else
 			{
 				morder();
 			}
 		}
 	}
-}
