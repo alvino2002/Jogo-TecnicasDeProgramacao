@@ -1,8 +1,6 @@
 #pragma once
-#include "Personagem.h"
 #include "GerenciadorTempo.h"
 #include "Inimigo.h"
-
 
 namespace Entidades
 {
@@ -24,9 +22,9 @@ namespace Entidades
 			);
 			~Aranha();
 			void executar();
-			void morder();
+			void morder(Jogador* pJ);
 			void aplicarVeneno();
-			void interagir();
+			void interagir(Jogador* pJ);
 		};
 	}
 }
