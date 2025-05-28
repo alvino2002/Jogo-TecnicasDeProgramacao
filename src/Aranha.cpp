@@ -1,5 +1,4 @@
 #include "Aranha.h"
-#include <iostream>
 
 namespace Entidades
 {
@@ -32,53 +31,52 @@ namespace Entidades
 
 			perseguir(); // Persegue o jogador
 
-			if (vida == 0) // Aranha eliminada
+			if (vida <= 0) // Aranha eliminada
 			{
 				setVivo(false);
-				std::cout << "Aranha morta" << std::endl;
 			}
 		}
 
-		void Aranha::morder()
+		void Aranha::morder(Jogador* pJ)
 		{
-			if (pJogador->getInvulneravel() == false)
+			if (pJ->getInvulneravel() == false)
 			{
-				pJogador->sofrerDano(mordida);
+				pJ->sofrerDano(mordida);
 
-				sf::Vector2f deslocamento = pJogador->getCorpo().getPosition() - corpo.getPosition();
+				sf::Vector2f deslocamento = pJ->getCorpo().getPosition() - corpo.getPosition();
 
 				if (deslocamento.x > 0)
 				{
-					pJogador->getCorpo().move(20.f, 0.f); // Empurra para a direita
+					pJ->getCorpo().move(30.f, 0.f); // Empurra para a direita
 				}
 				else
 				{
-					pJogador->getCorpo().move(-20.f, 0.f); // Empurra para a esquerda
+					pJ->getCorpo().move(-30.f, 0.f); // Empurra para a esquerda
 				}
 
-				pJogador->invulnerabilizar();
+				pJ->invulnerabilizar();
 			}
 		}
 
 		void Aranha::aplicarVeneno()
 		{
-			pJogador->sofrerDano(veneno);
+			pCavaleiro->sofrerDano(veneno);
 		}
 
-		void Aranha::interagir() // Ocorreu a colisao com o jogador
+		void Aranha::interagir(Jogador* pJ) // Ocorreu a colisao com o jogador
 		{
-			Entidades::Personagens::Cavaleiro* cavaleiro = dynamic_cast<Entidades::Personagens::Cavaleiro*>(pJogador);
+			Entidades::Personagens::Cavaleiro* cavaleiro = dynamic_cast<Entidades::Personagens::Cavaleiro*>(pJ);
 
 			if (cavaleiro && cavaleiro->getEstaAtacando()) // Cavaleiro atacando??
 			{
 				setVida(vida - cavaleiro->getDano());
-				aplicarVeneno(); // Ao tomar dano, aplica veneno ao atacante
+				aplicarVeneno(); // Ao tomar dano, aplica veneno ao atacante, no caso o cavaleiro
 				cavaleiro->setEstaAtacando(false);
 			}
 
 			else
 			{
-				morder();
+				morder(pJ);
 			}
 		}
 	}
