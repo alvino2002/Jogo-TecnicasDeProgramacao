@@ -1,13 +1,12 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-
 namespace Gerenciadores
 {
 	class GerenciadorTempo
 	{
 	private:
-		static GerenciadorTempo* pGerenciadorTempo;
+		static GerenciadorTempo* pGerenciadorTempo; // Modelo Singleton;
 		float deltaTempo;
 		sf::Clock relogio;
 		GerenciadorTempo();
