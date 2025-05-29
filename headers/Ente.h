@@ -6,7 +6,6 @@ namespace Gerenciadores
 	class GerenciadorEvento;
 	class GerenciadorColisao;
 	class GerenciadorTempo;
-	class GerenciadorAnimacao;
 }
 
 namespace Masmorra
@@ -18,7 +17,6 @@ namespace Masmorra
 		Gerenciadores::GerenciadorEvento* pGE;
 		Gerenciadores::GerenciadorColisao* pGC;
 		Gerenciadores::GerenciadorTempo* pGT;
-		Gerenciadores::GerenciadorAnimacao* pGA;
 
 	public:
 		Ente();
