@@ -22,12 +22,12 @@ namespace Entidades
 		virtual void executar() = 0;
 		sf::RectangleShape& getCorpo();
 		void aplicarGravidade(float delta);
+		float getVelocidadeX();
+		float getVelocidadeY();
+		void setVelocidadeX(float vY);
+		void setVelocidadeY(float vX);
 		bool getNaSuperficie();
 		void setNaSuperficie(bool superficie);
-		float getVelocidadeY();
-		float getVelocidadeX();
-		void setVelocidadeY(float vY);
-		void setVelocidadeX(float vX);
 		void setPosicao(sf::Vector2f pos);
 		void setAtivo(bool at);
 		bool getAtivo();
