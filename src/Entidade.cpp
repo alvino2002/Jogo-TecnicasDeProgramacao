@@ -1,13 +1,14 @@
 #include "Entidade.h"
-#include <iostream>
+
 
 namespace Entidades
 {
-	Entidade::Entidade(const sf::Vector2f tam, sf::Vector2f posIni, sf::Vector2f vel):
+	Entidade::Entidade(const sf::Vector2f tam, sf::Vector2f posIni, sf::Vector2f vel) :
 		Ente(),
+		tamanho(),
+		posicaoInicial(),
 		gravidade(980.f),
 		naSuperficie(true),
-		tamanho(tam),
 		ativo(true)
 	{
 		corpo.setSize(tam);
@@ -19,7 +20,7 @@ namespace Entidades
 	{
 	}
 
-	/*estamos retornando uma referencia, ja que alteraçoes feitas
+	/*Estamos retornando uma referencia, ja que alteraÃ§oes feitas
 	no corpo devem feitas no proprio atributo e nao em uma copia*/
 	sf::RectangleShape& Entidade::getCorpo()
 	{
@@ -32,14 +33,14 @@ namespace Entidades
 		corpo.move(0.0f, velocidade.y * deltaTime);
 	}
 
+	float Entidade::getVelocidadeX()
+	{
+		return velocidade.x;
+	}
+
 	float Entidade::getVelocidadeY()
 	{
 		return velocidade.y;
-	}
-
-	void Entidade::setVelocidadeY(float vY)
-	{
-		velocidade.y = vY;
 	}
 
 	void Entidade::setVelocidadeX(float vX)
@@ -47,9 +48,9 @@ namespace Entidades
 		velocidade.x = vX;
 	}
 
-	float Entidade::getVelocidadeX()
+	void Entidade::setVelocidadeY(float vY)
 	{
-		return velocidade.x;
+		velocidade.y = vY;
 	}
 
 	bool Entidade::getNaSuperficie()
