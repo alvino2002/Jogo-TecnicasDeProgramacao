@@ -1,13 +1,14 @@
 #include "GerenciadorAnimacao.h"
 
+
 namespace Gerenciadores
 {
-	GerenciadorAnimacao::GerenciadorAnimacao() :
-		totalTime(),
-		duracaoFrame(0.3f),
+	GerenciadorAnimacao::GerenciadorAnimacao():
 		numeroImgs(),
 		imgAtual(),
-		frameAtual()
+		frameAtual(),
+		duracaoFrame(0.3f),
+		totalTime()
 	{
 		pGT = GerenciadorTempo::getGerenciadorTempo();
 	}
@@ -16,29 +17,18 @@ namespace Gerenciadores
 	{
 	}
 
-	GerenciadorAnimacao* GerenciadorAnimacao::getGerenciadorAnimacao()
-	{
-		if (pGerenciadorAnimacao == nullptr)
-		{
-			pGerenciadorAnimacao = new GerenciadorAnimacao();
-		}
-		else
-		{
-			return pGerenciadorAnimacao;
-		}
-	}
 
-	void GerenciadorAnimacao::pegarAnimacao(sf::Texture* texture, sf::Vector2u imageCount)
+	void GerenciadorAnimacao::pegarAnimacao(sf::Texture* textura, sf::Vector2u imageCount)
 	{
-		this->numeroImgs = imageCount;
+		numeroImgs = imageCount;
 		totalTime = 0.0f;
 		imgAtual.x = 0;
 
-		frameAtual.width = texture->getSize().x / float(imageCount.x);
-		frameAtual.height = texture->getSize().y / float(imageCount.y);
+		frameAtual.width = textura->getSize().x / float(imageCount.x);
+		frameAtual.height = textura->getSize().y / float(imageCount.y);
 	}
 
-	void GerenciadorAnimacao::atualizar(int linha, bool faceRight)
+	void GerenciadorAnimacao::atualizar(int linha, bool olhandoDireita)
 	{
 		float deltaTime = pGT->getDeltaTime();
 
@@ -58,7 +48,7 @@ namespace Gerenciadores
 
 		frameAtual.top = imgAtual.y * frameAtual.height;
 
-		if (faceRight)
+		if (olhandoDireita)
 		{
 			frameAtual.left = imgAtual.x * frameAtual.width;
 			frameAtual.width = abs(frameAtual.width);
@@ -70,10 +60,8 @@ namespace Gerenciadores
 		}
 	}
 
-	const sf::IntRect& GerenciadorAnimacao::getUvRect() const
+	const sf::IntRect& GerenciadorAnimacao::getRetanguloTextura() const
 	{
 		return frameAtual;
 	}
-
-	GerenciadorAnimacao* GerenciadorAnimacao::pGerenciadorAnimacao = nullptr;
 }
