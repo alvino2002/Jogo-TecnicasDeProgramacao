@@ -1,11 +1,16 @@
 #pragma once
 
-namespace Gerenciadores
+
+namespace Masmorra
 {
-	class GerenciadorGrafico;
-	class GerenciadorEvento;
-	class GerenciadorColisao;
-	class GerenciadorTempo;
+	namespace Gerenciadores
+	{
+		class GerenciadorGrafico;
+		class GerenciadorEvento;
+		class GerenciadorColisao;
+		class GerenciadorTempo;
+		class GerenciadorEstado;
+	}
 }
 
 namespace Masmorra
@@ -13,6 +18,7 @@ namespace Masmorra
 	class Ente
 	{
 	protected:
+		Gerenciadores::GerenciadorEstado* pGEs;
 		Gerenciadores::GerenciadorGrafico* pGG;
 		Gerenciadores::GerenciadorEvento* pGE;
 		Gerenciadores::GerenciadorColisao* pGC;
