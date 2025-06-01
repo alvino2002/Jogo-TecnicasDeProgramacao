@@ -1,80 +1,81 @@
 #include "Entidade.h"
 
 
-namespace Entidades
+using namespace Masmorra::Entidades;
+
+
+Entidade::Entidade(const sf::Vector2f tam, sf::Vector2f posIni, sf::Vector2f vel) :
+	Ente(),
+	tamanho(),
+	posicaoInicial(),
+	corpo(),
+	gravidade(980.f),
+	naSuperficie(false),
+	ativo(true)
 {
-	Entidade::Entidade(const sf::Vector2f tam, sf::Vector2f posIni, sf::Vector2f vel) :
-		Ente(),
-		tamanho(),
-		posicaoInicial(),
-		gravidade(980.f),
-		naSuperficie(true),
-		ativo(true)
-	{
-		corpo.setSize(tam);
-		corpo.setPosition(posIni);
-		velocidade = vel;
-	}
+	corpo.setSize(tam);
+	corpo.setPosition(posIni);
+	velocidade = vel;
+}
 
-	Entidade::~Entidade()
-	{
-	}
+Entidade::~Entidade()
+{
+}
 
-	/*Estamos retornando uma referencia, ja que alteraçoes feitas
-	no corpo devem feitas no proprio atributo e nao em uma copia*/
-	sf::RectangleShape& Entidade::getCorpo()
-	{
-		return corpo;
-	}
+/*Estamos retornando uma referencia, ja que alteraçoes feitas
+no corpo devem feitas no proprio atributo e nao em uma copia*/
+sf::RectangleShape& Entidade::getCorpo()
+{
+	return corpo;
+}
 
-	void Entidade::aplicarGravidade(float deltaTime)
-	{
-		velocidade.y += gravidade * deltaTime;
-		corpo.move(0.0f, velocidade.y * deltaTime);
-	}
+void Entidade::aplicarGravidade(float deltaTime)
+{
+	velocidade.y += gravidade * deltaTime;
+	corpo.move(0.0f, velocidade.y * deltaTime);
+}
 
-	float Entidade::getVelocidadeX()
-	{
-		return velocidade.x;
-	}
+float Entidade::getVelocidadeX()const
+{
+	return velocidade.x;
+}
 
-	float Entidade::getVelocidadeY()
-	{
-		return velocidade.y;
-	}
+float Entidade::getVelocidadeY()const
+{
+	return velocidade.y;
+}
 
-	void Entidade::setVelocidadeX(float vX)
-	{
-		velocidade.x = vX;
-	}
+void Entidade::setVelocidadeX(float vX)
+{
+	velocidade.x = vX;
+}
 
-	void Entidade::setVelocidadeY(float vY)
-	{
-		velocidade.y = vY;
-	}
+void Entidade::setVelocidadeY(float vY)
+{
+	velocidade.y = vY;
+}
 
-	bool Entidade::getNaSuperficie()
-	{
-		return naSuperficie;
-	}
+bool Entidade::getNaSuperficie()const
+{
+	return naSuperficie;
+}
 
-	void Entidade::setNaSuperficie(bool superficie)
-	{
-		naSuperficie = superficie;
-	}
+void Entidade::setNaSuperficie(bool superficie)
+{
+	naSuperficie = superficie;
+}
 
-	void Entidade::setPosicao(sf::Vector2f pos)
-	{
-		corpo.setPosition(pos);
-	}
+void Entidade::setPosicao(sf::Vector2f pos)
+{
+	corpo.setPosition(pos);
+}
 
-	void Entidade::setAtivo(bool at)
-	{
-		ativo = at;
-	}
+void Entidade::setAtivo(bool at)
+{
+	ativo = at;
+}
 
-	bool Entidade::getAtivo()
-	{
-		return ativo;
-	}
+bool Entidade::getAtivo()const
+{
+	return ativo;
 }
