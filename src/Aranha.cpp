@@ -23,6 +23,7 @@ Aranha::Aranha(
 
 Aranha::~Aranha()
 {
+	pGA = nullptr;
 }
 
 void Aranha::executar()
