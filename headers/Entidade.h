@@ -26,8 +26,8 @@ namespace Masmorra
 			void aplicarGravidade(float delta);
 			float getVelocidadeX()const;
 			float getVelocidadeY()const;
-			void setVelocidadeX(float vY);
-			void setVelocidadeY(float vX);
+			void setVelocidadeX(float vX);
+			void setVelocidadeY(float vY);
 			bool getNaSuperficie()const;
 			void setNaSuperficie(bool superficie);
 			void setPosicao(sf::Vector2f pos);
