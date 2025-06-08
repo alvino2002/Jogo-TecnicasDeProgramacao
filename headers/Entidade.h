@@ -2,6 +2,7 @@
 #include "Ente.h"
 #include <SFML/Graphics.hpp>
 
+
 namespace Masmorra
 {
 	namespace Entidades
@@ -9,7 +10,7 @@ namespace Masmorra
 		class Entidade : public Ente
 		{
 		protected:
-			const sf::Vector2f tamanho;
+			sf::Vector2f tamanho;
 			sf::Vector2f posicaoInicial;
 			sf::RectangleShape corpo;
 			float gravidade;
