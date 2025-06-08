@@ -2,23 +2,26 @@
 #include <SFML/Graphics.hpp>
 #include "GerenciadorTempo.h"
 
-namespace Gerenciadores
+namespace Masmorra
 {
-	class GerenciadorAnimacao
+	namespace Gerenciadores
 	{
-	private:
-		sf::Vector2u numeroImgs;
-		sf::Vector2u imgAtual;
-		sf::IntRect frameAtual;
-		float duracaoFrame;
-		float totalTime;
-		GerenciadorTempo* pGT;
+		class GerenciadorAnimacao
+		{
+		private:
+			sf::Vector2u numeroImgs;
+			sf::Vector2u imgAtual;
+			sf::IntRect frameAtual;
+			float duracaoFrame;
+			float tempoTotal;
+			GerenciadorTempo* pGT;
 
-	public:
-		GerenciadorAnimacao();
-		~GerenciadorAnimacao();
-		void pegarAnimacao(sf::Texture* textura, sf::Vector2u qtdeImgs);
-		void atualizar(int linha, bool olhandoDireita);
-		const sf::IntRect& getRetanguloTextura() const;
-	};
+		public:
+			GerenciadorAnimacao();
+			~GerenciadorAnimacao();
+			void pegarAnimacao(sf::Texture* textura, sf::Vector2u qtdeImgs);
+			void atualizar(int linha, bool olhandoDireita);
+			const sf::IntRect& getFrameAtual() const;
+		};
+	}
 }
