@@ -12,9 +12,9 @@ namespace Masmorra
 			class Aranha : public Inimigo
 			{
 			private:
-				short int mordida;
-				short int veneno;
-				Masmorra::Gerenciadores::GerenciadorAnimacao* pGA;
+				int mordida;
+				int veneno;
+				Gerenciadores::GerenciadorAnimacao* pGA;
 
 			public:
 				Aranha(
@@ -30,7 +30,7 @@ namespace Masmorra
 				void executar();
 				void morder(Jogador* pJ);
 				void aplicarVeneno();
-				void interagir(Jogador* pJ);
+				void interagir(Jogador* pJ); // Inimigar
 			};
 		}
 	}
