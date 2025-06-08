@@ -1,5 +1,5 @@
 #pragma once
-
+#include "SFML/Graphics.hpp"
 
 namespace Masmorra
 {
@@ -18,11 +18,11 @@ namespace Masmorra
 	class Ente
 	{
 	protected:
-		Gerenciadores::GerenciadorEstado* pGEs;
-		Gerenciadores::GerenciadorGrafico* pGG;
-		Gerenciadores::GerenciadorEvento* pGE;
-		Gerenciadores::GerenciadorColisao* pGC;
-		Gerenciadores::GerenciadorTempo* pGT;
+		static Gerenciadores::GerenciadorEstado* pGEs;
+		static Gerenciadores::GerenciadorGrafico* pGG;
+		static Gerenciadores::GerenciadorEvento* pGE;
+		static Gerenciadores::GerenciadorColisao* pGC;
+		static Gerenciadores::GerenciadorTempo* pGT;
 
 	public:
 		Ente();
