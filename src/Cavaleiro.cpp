@@ -1,6 +1,5 @@
 #include "Cavaleiro.h"
-
-
+#include <iostream>
 
 using namespace Masmorra::Entidades::Personagens;
 
@@ -9,7 +8,7 @@ Cavaleiro::Cavaleiro(sf::Vector2f tamanho, sf::Vector2f posicaoInicial, sf::Vect
 	                 sf::Texture* texture, sf::Vector2u imageCount):
 	Jogador(tamanho, posicaoInicial, velocidade, vida),
 	estaAtacando(false),
-	dano(4),
+	dano(2),
 	pulo(80.0f),
 	energia(20),
 	tempoRecuperar(),
@@ -21,6 +20,7 @@ Cavaleiro::Cavaleiro(sf::Vector2f tamanho, sf::Vector2f posicaoInicial, sf::Vect
 	pGA = new Gerenciadores::GerenciadorAnimacao();
 	corpo.setTexture(texture);
 	pGA->pegarAnimacao(texture, imageCount);
+
 }
 
 Cavaleiro::~Cavaleiro()
@@ -30,6 +30,9 @@ Cavaleiro::~Cavaleiro()
 
 void Cavaleiro::executar()
 {
+
+	std::cout << inimigosEliminados << std::endl;
+
 	velAtual.x = 0.0f;
 
 	/*Movimento do cavaleiro*/
@@ -46,7 +49,7 @@ void Cavaleiro::executar()
 	}
 
 	/*Pulo do cavaleiro*/
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && (naSuperficie || naCaixa || naLava))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) && (naSuperficie))
 	{
 		velAtual.y = -sqrtf(2.0f * gravidade * pulo);
 
@@ -54,21 +57,11 @@ void Cavaleiro::executar()
 		{
 			naSuperficie = false;
 		}
-
-		if (naCaixa) // Em cima da caixa
-		{
-			naCaixa = false;
-		}
-
-		if (naLava) // Em cima da lava
-		{
-			naLava = false;
-		}
 	}
 
-	float deltaTime = pGT->getDeltaTime();
+	float deltaTime = pGT->getDeltaTempo();
 
-	if (naSuperficie || naCaixa || naLava)
+	if (naSuperficie)
 	{
 		velAtual.y = 0;
 	}
@@ -143,7 +136,7 @@ void Cavaleiro::executar()
 
 	pGA->atualizar(linha, olhandoDireita);
 
-	corpo.setTextureRect(pGA->getRetanguloTextura());
+	corpo.setTextureRect(pGA->getFrameAtual());
 }
 
 bool Cavaleiro::getEstaAtacando()const
@@ -179,3 +172,24 @@ void Cavaleiro::recuperar()
 	energia = 10;
 }
 
+void Cavaleiro::operator++()
+{
+	inimigosEliminados++;
+}
+
+int Cavaleiro::getInimigosEliminados()
+{
+	return inimigosEliminados;
+}
+
+void Cavaleiro::setInimigosEliminados(int numeroInimigos)
+{
+	inimigosEliminados = numeroInimigos;
+}
+
+void Cavaleiro::zerarInimigosEliminados()
+{
+	inimigosEliminados = 0;
+}
+
+int Masmorra::Entidades::Personagens::Cavaleiro::inimigosEliminados = 0;
