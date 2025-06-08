@@ -1,7 +1,8 @@
 #include "GerenciadorEvento.h"
 
 
-using namespace Gerenciadores;
+using namespace Masmorra::Gerenciadores;
+
 
 GerenciadorEvento::GerenciadorEvento()
 {
@@ -30,7 +31,7 @@ void GerenciadorEvento::executar()
 {
 	sf::Event evento;
 
-	while (pG->getWindow()->pollEvent(evento))
+	while (pG->getJanela()->pollEvent(evento))
 	{
 		 if (evento.type == sf::Event::Closed)
 		{
