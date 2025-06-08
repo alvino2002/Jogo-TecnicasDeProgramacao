@@ -1,42 +1,44 @@
 #include "Fogo.h"
 #include "GerenciadorTempo.h"
 #include "GerenciadorColisao.h"
+#include "GerenciadorAnimacao.h"
 
-namespace Entidades
+
+using namespace Masmorra::Entidades;
+
+
+Fogo::Fogo(const sf::Vector2f tam, sf::Vector2f posIni, sf::Vector2f vel, 
+	sf::Texture* textura,
+	sf::Vector2u imageCount) :
+	Entidade(tam, posIni, vel),
+	dano(3)
 {
-	Fogo::Fogo(const sf::Vector2f tam, sf::Vector2f posIni, sf::Vector2f vel):
-		Entidade(tam, posIni, vel),
-		dano(3),
-		pJogador()
+	pGA = new Gerenciadores::GerenciadorAnimacao();
+	corpo.setTexture(textura);
+	pGA->pegarAnimacao(textura, imageCount);
+}
+
+Fogo::~Fogo()
+{
+}
+
+void Fogo::executar()
+{
+	float deltaTime = pGT->getDeltaTempo();
+	corpo.move(velocidade * deltaTime);
+
+	pGA->atualizar(0, false);
+	corpo.setTextureRect(pGA->getFrameAtual());
+}
+
+
+void Fogo::interagir(Personagens::Jogador* pJ)
+{
+	if (pJ->getInvulneravel() == false)
 	{
+		pJ->sofrerDano(dano);
+		pJ->invulnerabilizar();
 	}
 
-	Fogo::~Fogo()
-	{
-	}
-
-	void Fogo::executar()
-	{
-		float deltaTime = pGT->getDeltaTime();
-		corpo.move(velocidade * deltaTime);
-	}
-
-	void Fogo::setJogador(Personagens::Jogador* pJ)
-	{
-		if (pJ)
-		{
-			pJogador = pJ;
-		}
-	}
-
-	void Fogo::interagir(Personagens::Jogador* pJ)
-	{
-		if (pJ->getInvulneravel() == false)
-		{
-			pJ->sofrerDano(dano);
-			pJ->invulnerabilizar();
-		}
-	
-		setAtivo(false);
-	}
+	setAtivo(false); // Na colisao, é automaticamente excluido
 }
