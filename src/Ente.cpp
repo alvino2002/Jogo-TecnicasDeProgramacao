@@ -8,12 +8,7 @@
 
 using namespace Masmorra;
 
-Ente::Ente() :
-	pGG(nullptr),
-	pGE(nullptr),
-	pGC(nullptr),
-	pGT(nullptr),
-	pGEs(nullptr)
+Ente::Ente() 
 {
 	pGG = Gerenciadores::GerenciadorGrafico::getGerenciadorGrafico();
 	pGE = Gerenciadores::GerenciadorEvento::getGerenciadorEvento();
@@ -26,3 +21,11 @@ Ente::Ente() :
 Ente::~Ente()
 {
 }
+
+Gerenciadores::GerenciadorGrafico* Ente::pGG = nullptr;
+Gerenciadores::GerenciadorEvento* Ente::pGE = nullptr;
+Gerenciadores::GerenciadorColisao* Ente::pGC = nullptr;
+Gerenciadores::GerenciadorTempo* Ente::pGT = nullptr;
+Gerenciadores::GerenciadorEstado* Ente::pGEs = nullptr;
+
+
