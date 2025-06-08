@@ -8,12 +8,9 @@ namespace Masmorra
 	{
 		class ObservadorMenu : public Observador
 		{
-		private:
-			Menu* pMenu;
 		public:
 			ObservadorMenu();
 			~ObservadorMenu();
-			void setMenu(Menu* pM);
 			void notificarEvento(const std::string& evento);
 		};
 	}
