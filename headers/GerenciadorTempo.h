@@ -1,20 +1,23 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-namespace Gerenciadores
+namespace Masmorra
 {
-	class GerenciadorTempo
+	namespace Gerenciadores
 	{
-	private:
-		static GerenciadorTempo* pGerenciadorTempo; // Modelo Singleton;
-		float deltaTempo;
-		sf::Clock relogio;
-		GerenciadorTempo();
+		class GerenciadorTempo
+		{
+		private:
+			static GerenciadorTempo* pGerenciadorTempo; // Modelo Singleton, uma instancia para todo o jogo.
+			float deltaTempo;
+			sf::Clock relogio;
+			GerenciadorTempo();
 
-	public:
-		~GerenciadorTempo();
-		static GerenciadorTempo* getGerenciadorTempo();
-		void atualizar();
-		float getDeltaTime() const;
-	};
+		public:
+			~GerenciadorTempo();
+			static GerenciadorTempo* getGerenciadorTempo();
+			void atualizar();
+			float getDeltaTempo() const;
+		};
+	}
 }
