@@ -3,6 +3,7 @@
 
 using namespace Masmorra::Entidades::Personagens;
 
+
 Aranha::Aranha(
 	sf::Vector2f tamanho,
 	sf::Vector2f posicaoInicial,
@@ -16,7 +17,7 @@ Aranha::Aranha(
 	mordida(2),
 	veneno(1)
 {
-	pGA = new Masmorra::Gerenciadores::GerenciadorAnimacao();
+	pGA = new Gerenciadores::GerenciadorAnimacao();
 	corpo.setTexture(textura);
 	pGA->pegarAnimacao(textura, imageCount);
 }
@@ -30,19 +31,25 @@ void Aranha::executar()
 {
 	if (!naSuperficie)
 	{
-		float deltaTime = pGT->getDeltaTime();
+		float deltaTime = pGT->getDeltaTempo();
 		aplicarGravidade(deltaTime);
+	}
+	else
+	{
+		velocidade.y = 0.0f;
 	}
 
 	perseguir(); // Persegue o jogador
 
 	pGA->atualizar(2, olhandoDireita);
 
-	corpo.setTextureRect(pGA->getRetanguloTextura());
+	corpo.setTextureRect(pGA->getFrameAtual());
 
 	if (vida <= 0) // Aranha eliminada
 	{
 		setVivo(false);
+		Jogador::derrotarAranha();
+		pCavaleiro->operator++();
 	}
 }
 
