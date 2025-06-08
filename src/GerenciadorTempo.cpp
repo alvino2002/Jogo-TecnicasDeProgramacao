@@ -1,9 +1,9 @@
 #include "GerenciadorTempo.h"
 
 
-namespace Gerenciadores
-{
-	GerenciadorTempo::GerenciadorTempo() :
+using namespace Masmorra::Gerenciadores;
+
+	GerenciadorTempo::GerenciadorTempo():
 		deltaTempo(),
 		relogio()
 	{
@@ -30,10 +30,9 @@ namespace Gerenciadores
 		deltaTempo = relogio.restart().asSeconds();
 	}
 
-	float GerenciadorTempo::getDeltaTime() const
+	float GerenciadorTempo::getDeltaTempo() const
 	{
 		return deltaTempo;
 	}
 
 	GerenciadorTempo* GerenciadorTempo::pGerenciadorTempo = nullptr;
-}
