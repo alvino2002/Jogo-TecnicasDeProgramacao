@@ -11,10 +11,13 @@ namespace Masmorra
 	{
 		class ObservadorPrimeiraFase : public Observador
 		{
+		private:
+			Fases::PrimeiraFase* pPrim;
 		public:
 			ObservadorPrimeiraFase();
 			~ObservadorPrimeiraFase();
 			void notificarEvento(const std::string& evento);
+			void setPrimeiraFase(Fases::PrimeiraFase* pP);
 		};
 	}
 }
