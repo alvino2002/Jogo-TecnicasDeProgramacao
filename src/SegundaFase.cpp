@@ -318,10 +318,9 @@ void SegundaFase::executar()
 	for (int i = listaEntidades.getTam() - 1; i >= 0; i--)
 	{
 		Entidades::Entidade* pE = listaEntidades.getEntidade(i);
-		pE->executar();
-		if (pE->getAtivo() == true) // Jogador ou inimigo morreu
+		if (pE->getAtivo() == true) 
 		{
-			listaEntidades.deletarEntidade(pE);
+			pE->executar();
 			pGG->desenharElementos(pE->getCorpo());
 		}
 	}
