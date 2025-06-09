@@ -18,6 +18,7 @@ namespace Masmorra
 			sf::View camera;
 			int numeroInimigos;
 			bool fimDaFase;
+			int quantidadeJogadores;
 
 		public:
 			Fase(int qtdeJogadores);
@@ -27,6 +28,7 @@ namespace Masmorra
 			virtual void executar() = 0;
 			void setFimDaFase(bool fim); // Fase acaba quando todos os inimigos forem derrotados
 			bool getFimDaFase();
+			int getQtdeJogadores();
 		};
 	}
 }
