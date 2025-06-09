@@ -11,9 +11,9 @@ using namespace Masmorra::Observadores;
 
 
 ObservadorPrimeiraFase::ObservadorPrimeiraFase() :
-	Observador()
+	Observador(),
+	pPrim()
 {
-
 }
 
 ObservadorPrimeiraFase::~ObservadorPrimeiraFase()
@@ -38,8 +38,23 @@ void ObservadorPrimeiraFase::notificarEvento(const std::string& evento)
 	if (evento == "AVANCAR")
 	{
 		pGEs->removerEstado(); // Removendo o estado atual no topo, no caso EstadoPrimeiraFase
-		Estados::EstadoSegundaFase* segundaFase = new Estados::EstadoSegundaFase(1);
-		pGEs->adicionarEstado(segundaFase);
+		if (pPrim->getQtdeJogadores() == 1)
+		{
+			Estados::EstadoSegundaFase* segundaFase = new Estados::EstadoSegundaFase(1);
+			pGEs->adicionarEstado(segundaFase);
+		}
+		else
+		{
+			Estados::EstadoSegundaFase* segundaFase = new Estados::EstadoSegundaFase(2);
+			pGEs->adicionarEstado(segundaFase);
+		}
 	}
 }
 
+void ObservadorPrimeiraFase::setPrimeiraFase(Fases::PrimeiraFase* pP)
+{
+	if (pP)
+	{
+		pPrim = pP;
+	}
+}
