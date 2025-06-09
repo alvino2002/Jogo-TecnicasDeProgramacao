@@ -11,7 +11,8 @@ Fase::Fase(int qtdeJogadores):
 	listaEntidades(),
 	camera(),
 	numeroInimigos(),
-	fimDaFase(false)
+	fimDaFase(false),
+	quantidadeJogadores(qtdeJogadores)
 {
 	if (qtdeJogadores == 1)
 	{
@@ -21,7 +22,7 @@ Fase::Fase(int qtdeJogadores):
 			sf::Vector2f(50.f, 70.f),
 			sf::Vector2f(100.f, 4800.f),
 			sf::Vector2f(200.f, 0.f),
-			100, texturaJog1, sf::Vector2u(4, 4));
+			10, texturaJog1, sf::Vector2u(4, 4));
 
 		pCur = nullptr;
 
@@ -39,7 +40,7 @@ Fase::Fase(int qtdeJogadores):
 			sf::Vector2f(50.f, 70.f),
 			sf::Vector2f(100.f, 4800.f),
 			sf::Vector2f(200.f, 0.f),
-			100, texturaJog1, sf::Vector2u(4, 4));
+			10, texturaJog1, sf::Vector2u(4, 4));
 		sf::Texture* texturaJog2 = new sf::Texture();
 
 		texturaJog2->loadFromFile("healer_Sprite.png");
@@ -78,4 +79,7 @@ bool Fase::getFimDaFase()
 	return fimDaFase;
 }
 
-
+int Fase::getQtdeJogadores()
+{
+	return quantidadeJogadores;
+}
