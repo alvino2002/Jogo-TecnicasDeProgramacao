@@ -6,10 +6,9 @@ namespace Masmorra
 	namespace Gerenciadores
 	{
 		class GerenciadorGrafico;
-		class GerenciadorEvento;
 		class GerenciadorColisao;
 		class GerenciadorTempo;
-		class GerenciadorEstado;
+		class GerenciadorAnimacao;
 	}
 }
 
@@ -18,14 +17,22 @@ namespace Masmorra
 	class Ente
 	{
 	protected:
-		static Gerenciadores::GerenciadorEstado* pGEs;
+		/*Utilizamos static pois sao ponteiros globais, compartilhado para todos*/
+
 		static Gerenciadores::GerenciadorGrafico* pGG;
-		static Gerenciadores::GerenciadorEvento* pGE;
 		static Gerenciadores::GerenciadorColisao* pGC;
 		static Gerenciadores::GerenciadorTempo* pGT;
 
+	protected:
+		Gerenciadores::GerenciadorAnimacao* pGA; // Equivalente à pFig no modelo proposto
+
+	protected:
+		int id; // Entes fisicos receberao id = 1 e entes nao fisicos receberao id = 2
+
 	public:
-		Ente();
+		Ente(int i);
 		virtual ~Ente();
+		int getId();
+		void desenhar();
 	};
 }
