@@ -1,6 +1,7 @@
 #pragma once
 #include "Ente.h"
 #include <SFML/Graphics.hpp>
+#include <sstream>
 
 
 namespace Masmorra
@@ -11,16 +12,16 @@ namespace Masmorra
 		{
 		protected:
 			sf::Vector2f tamanho;
-			sf::Vector2f posicaoInicial;
+			sf::Vector2f posicao;
 			sf::RectangleShape corpo;
 			float gravidade;
 			sf::Vector2f velocidade;
 			bool naSuperficie;
 			bool ativo;
-
+			
 		public:
 			/*Valor default para velocidade ja que nem todos as entidades terao velocidade*/
-			Entidade(const sf::Vector2f tam, sf::Vector2f posIni, sf::Vector2f vel = sf::Vector2f(0.0f, 0.0f));
+			Entidade(int id, const sf::Vector2f tam, sf::Vector2f posIni, sf::Vector2f vel = sf::Vector2f(0.0f, 0.0f));
 			virtual ~Entidade();
 			virtual void executar() = 0;
 			sf::RectangleShape& getCorpo();
@@ -34,6 +35,8 @@ namespace Masmorra
 			void setPosicao(sf::Vector2f pos);
 			void setAtivo(bool at);
 			bool getAtivo()const;
+			float getPosicaoX();
+			float getPosicaoY();
 		};
 	}
 }
