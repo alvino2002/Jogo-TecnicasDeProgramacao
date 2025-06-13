@@ -1,31 +1,41 @@
 #include "Ente.h"
 #include "GerenciadorColisao.h"
-#include "GerenciadorEvento.h"
 #include "GerenciadorTempo.h"
 #include "GerenciadorGrafico.h"
-#include "GerenciadorEstado.h"
+#include <iostream>
 
 
 using namespace Masmorra;
 
-Ente::Ente() 
+Ente::Ente(int i) :
+	id(i)
 {
 	pGG = Gerenciadores::GerenciadorGrafico::getGerenciadorGrafico();
-	pGE = Gerenciadores::GerenciadorEvento::getGerenciadorEvento();
 	pGC = Gerenciadores::GerenciadorColisao::getGerenciadorColisao();
 	pGT = Gerenciadores::GerenciadorTempo::getGerenciadorTempo();
-	pGEs = Gerenciadores::GerenciadorEstado::getGerenciadorEstado();
-
+	
+	pGA = new Gerenciadores::GerenciadorAnimacao();
 }
 
 Ente::~Ente()
 {
 }
 
+int Ente::getId()
+{ 
+	return id;
+}
+
+void Ente::desenhar()
+{
+	if (this)
+	{
+		pGG->desenharEnte(this);
+	}
+}
+
 Gerenciadores::GerenciadorGrafico* Ente::pGG = nullptr;
-Gerenciadores::GerenciadorEvento* Ente::pGE = nullptr;
 Gerenciadores::GerenciadorColisao* Ente::pGC = nullptr;
 Gerenciadores::GerenciadorTempo* Ente::pGT = nullptr;
-Gerenciadores::GerenciadorEstado* Ente::pGEs = nullptr;
 
 
