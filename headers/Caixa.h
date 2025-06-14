@@ -3,6 +3,7 @@
 #include "Jogador.h"
 #include "GerenciadorColisao.h"
 
+
 namespace Masmorra
 {
 	namespace Entidades
@@ -12,13 +13,19 @@ namespace Masmorra
 			class Caixa : public Obstaculo
 			{
 			private:
-				Gerenciadores::GerenciadorAnimacao* pGA;
+				float lentidao;
 
 			public:
-				Caixa(const sf::Vector2f tam, sf::Vector2f posIni, sf::Texture* texture, sf::Vector2u imageCount);
+				Caixa(
+					int id, 
+					sf::Vector2f tam, 
+					sf::Vector2f posicao, 
+					sf::Texture* texture, 
+					sf::Vector2u imageCount
+				);
 				~Caixa();
 				void executar();
-				void interagir(Entidade* pE); // Obstacularizar;
+				void obstacularizar(Entidade* pE); 
 			};
 		}
 	}
