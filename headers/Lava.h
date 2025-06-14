@@ -2,6 +2,7 @@
 #include "Obstaculo.h"
 #include "GerenciadorAnimacao.h"
 
+
 namespace Masmorra
 {
 	namespace Entidades
@@ -12,12 +13,18 @@ namespace Masmorra
 			{
 			private:
 				int dano;
-				Gerenciadores::GerenciadorAnimacao* pGA;
+
 			public:
-				Lava(const sf::Vector2f tam, sf::Vector2f posIni, sf::Texture* texture, sf::Vector2u imageCount);
+				Lava(
+					int id, 
+					sf::Vector2f tam, 
+					sf::Vector2f posicao, 
+					sf::Texture* textura, 
+					sf::Vector2u imageCount
+				);
 				~Lava();
 				void executar();
-				void interagir(Entidade* pE);
+				void obstacularizar(Entidade* pE);
 			};
 		}
 	}
