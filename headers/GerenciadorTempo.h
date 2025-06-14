@@ -16,7 +16,7 @@ namespace Masmorra
 		public:
 			~GerenciadorTempo();
 			static GerenciadorTempo* getGerenciadorTempo();
-			void atualizar();
+			void reiniciar();
 			float getDeltaTempo() const;
 		};
 	}
