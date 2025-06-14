@@ -14,7 +14,7 @@ namespace Masmorra
 			Observadores::ObservadorRanking* pObs;
 
 		public:
-			EstadoRanking(int pontuacao);
+			EstadoRanking();
 			~EstadoRanking();
 			void executar();
 			void verificarEvento();
