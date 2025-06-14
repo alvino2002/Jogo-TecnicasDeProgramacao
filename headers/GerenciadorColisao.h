@@ -39,10 +39,10 @@ namespace Masmorra
 			void incluirInimigo(Entidades::Personagens::Inimigo* pI);
 			void incluirProjetil(Entidades::Entidade* pF);
 			void executar();
-			float getDeltaX();
-			float getDeltaY();
-			float getIntersectX();
-			float getIntersectY();
+			float getDeltaX()const;
+			float getDeltaY()const;
+			float getIntersectX()const;
+			float getIntersectY()const;
 			Listas::ListaEntidades& getListaProjeteis();
 			void limparListas();
 		};
