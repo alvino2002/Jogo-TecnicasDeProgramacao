@@ -1,6 +1,6 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include "Entidade.h"
+
 
 namespace Masmorra
 {
@@ -15,12 +15,18 @@ namespace Masmorra
 				bool olhandoDireita;
 
 			public:
-				Personagem(sf::Vector2f tam, sf::Vector2f posInicial, sf::Vector2f velocidade, int v);
+				Personagem(
+					int id, 
+					sf::Vector2f tam, 
+					sf::Vector2f posicao, 
+					sf::Vector2f velocidade, 
+					int v
+				);
 				~Personagem();
 				void setVida(int v);
-				int getVida();
+				int getVida()const;
 				void setVivo(bool v);
-				bool getOlhandoDireita();
+				bool getOlhandoDireita()const;
 				virtual void executar() = 0;
 			};
 		}
