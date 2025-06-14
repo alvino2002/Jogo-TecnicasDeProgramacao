@@ -10,7 +10,7 @@ namespace Masmorra
 		class EstadoSelecaoSeg : public Estado
 		{
 		private:
-			SelecaoSegunda* pSelecaoSegunda;
+			Masmorra::Interfaces::SelecaoSegunda* pSelecaoSegunda;
 			Observadores::ObservadorSelecaoSeg* pObs;
 
 		public:
