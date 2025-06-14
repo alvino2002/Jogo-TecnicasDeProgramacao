@@ -13,7 +13,6 @@ namespace Masmorra
 			class Mago : public Inimigo
 			{
 			private:
-				Gerenciadores::GerenciadorAnimacao* pGA;
 				Listas::ListaEntidades listaDeProjeteis;
 				sf::Clock tempoLancamento;  // Temporizador para lancar o projetil
 				float recargaLancamento;  // Tempo de espera entre recargas
@@ -21,10 +20,12 @@ namespace Masmorra
 
 			public:
 				Mago(
+					int id,
 					sf::Vector2f tamanho,
-					sf::Vector2f posicaoInicial,
+					sf::Vector2f posicao,
 					sf::Vector2f velocidade,
 					int vida,
+					int nivelMaldade,
 					sf::Vector2f alcance,
 					sf::Texture* textura,
 					sf::Vector2u imageCount
@@ -32,7 +33,7 @@ namespace Masmorra
 				~Mago();
 				void executar();
 				void criarFogo();
-				void interagir(Jogador* pJ);
+				void danificar(Jogador* pJ);
 			};
 		}
 	}
