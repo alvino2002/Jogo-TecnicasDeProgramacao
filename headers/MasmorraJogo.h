@@ -3,21 +3,22 @@
 #include "EstadoPause.h"
 #include "Ente.h"
 #include "GerenciadorGrafico.h"
-#include "GerenciadorEvento.h"
 #include "GerenciadorEstado.h"
 
 
 namespace Masmorra
 {
-	class Principal
+	class MasmorraJogo
 	{
 	private:
+		/*Nao necessariamente estatico, mas conforme o modelo Singleton, todos os ponteiros apontarao para o mesmo local*/
 		Gerenciadores::GerenciadorEstado* pGEs;
+		Gerenciadores::GerenciadorColisao* pGC;
 		Gerenciadores::GerenciadorGrafico* pGG;
-		Gerenciadores::GerenciadorEvento* pGE;
+		
 	public:
-		Principal();
-		~Principal();
+		MasmorraJogo();
+		~MasmorraJogo();
 		void rodarJogo();
 	};
 }
