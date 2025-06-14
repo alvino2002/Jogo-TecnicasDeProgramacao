@@ -20,7 +20,7 @@ namespace Masmorra
 			bool ativo;
 			
 		public:
-			/*Valor default para velocidade ja que nem todos as entidades terao velocidade*/
+			/*Valor default para velocidade ja que nem todas as entidades terao velocidade*/
 			Entidade(int id, const sf::Vector2f tam, sf::Vector2f posIni, sf::Vector2f vel = sf::Vector2f(0.0f, 0.0f));
 			virtual ~Entidade();
 			virtual void executar() = 0;
