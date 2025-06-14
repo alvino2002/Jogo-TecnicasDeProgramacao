@@ -1,8 +1,6 @@
 #pragma once
-#include "Ente.h"
 #include "Observador.h"
 #include "Fim.h"
-#include "GerenciadorEstado.h"
 
 namespace Masmorra
 {
@@ -10,12 +8,14 @@ namespace Masmorra
 	{
 		class ObservadorFim : public Observador
 		{
-	
+		private:
+			Masmorra::Interfaces::Fim* pFim;
+
 		public:
 			ObservadorFim();
 			~ObservadorFim();
+			void setFim(Masmorra::Interfaces::Fim* pF);
 			void notificarEvento(const std::string& evento);
-
 		};
 	}
 }
