@@ -1,7 +1,6 @@
 #pragma once
 #include "Observador.h"
 #include "PrimeiraFase.h"
-#include "GerenciadorEstado.h"
 
 namespace Masmorra
 {
