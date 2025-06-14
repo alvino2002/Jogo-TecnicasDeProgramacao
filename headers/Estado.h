@@ -1,12 +1,15 @@
 #pragma once
-#include "Ente.h"
+#include "GerenciadorTempo.h"
 
 namespace Masmorra
 {
 	namespace Estados
 	{
-		class Estado : public Ente
+		class Estado 
 		{
+		protected:
+			Gerenciadores::GerenciadorTempo* pGT;
+
 		public:
 			Estado();
 			virtual ~Estado();
