@@ -1,9 +1,7 @@
 #pragma once
-#include "Ente.h"
 #include "Observador.h"
 #include "PrimeiraFase.h"
 #include "GerenciadorEstado.h"
-
 
 namespace Masmorra
 {
@@ -13,6 +11,7 @@ namespace Masmorra
 		{
 		private:
 			Fases::PrimeiraFase* pPrim;
+
 		public:
 			ObservadorPrimeiraFase();
 			~ObservadorPrimeiraFase();
