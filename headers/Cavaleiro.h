@@ -3,6 +3,7 @@
 #include "GerenciadorAnimacao.h"
 #include "GerenciadorTempo.h"
 
+
 namespace Masmorra
 {
 	namespace Entidades
@@ -14,7 +15,6 @@ namespace Masmorra
 			private:
 				bool estaAtacando;
 				int dano;
-				float pulo;
 				int energia;
 				sf::Clock tempoRecuperar; // Temporalizador para a energia
 				float duracaoRecuperacao; // Tempo para recuperar energia
@@ -22,11 +22,19 @@ namespace Masmorra
 				float recargaAtaque;  // Tempo de espera entre ataques
 				bool ataquePronto;
 				static int inimigosEliminados; // Apenas cavaleiro consegue eliminar 
-				Gerenciadores::GerenciadorAnimacao* pGA;
 
 			public:
-				Cavaleiro(sf::Vector2f tamanho, sf::Vector2f posicaoInicial, sf::Vector2f velocidade, int vida,
-					sf::Texture* texture, sf::Vector2u imageCount);
+				Cavaleiro(
+					int id, 
+					sf::Vector2f tamanho, 
+					sf::Vector2f posicao, 
+					sf::Vector2f velocidade, 
+					int vida, 
+					float pulo,
+					sf::Texture* texture, 
+					sf::Vector2u imageCount
+				);
+
 				~Cavaleiro();
 				void executar();
 				bool getEstaAtacando()const;
@@ -37,7 +45,7 @@ namespace Masmorra
 				void operator++(); // Incrementar numero de inimigos eliminados
 				static int getInimigosEliminados();
 				static void setInimigosEliminados(int numeroInimigos);
-				static void zerarInimigosEliminados();
+				static void zerarInimigosEliminados(); // Metodo para quando passar para segunda fase
 			};
 		}
 	}
