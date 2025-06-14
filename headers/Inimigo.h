@@ -22,7 +22,7 @@ namespace Masmorra
 				Inimigo(
 					int id,
 					sf::Vector2f tamanho,
-					sf::Vector2f posicaoInicial,
+					sf::Vector2f posicao,
 					sf::Vector2f velocidade,
 					int vida,
 					int nivelDeMal,
