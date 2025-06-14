@@ -1,8 +1,6 @@
 #pragma once
 #include "Entidade.h"
-#include <SFML/Graphics.hpp>
 #include "ListaEntidades.h"
-#include "Obstaculo.h"
 #include "Inimigo.h"
 #include "Jogador.h"
 #include "GerenciadorTempo.h"
