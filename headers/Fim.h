@@ -1,18 +1,22 @@
 #pragma once
 #include "Estado.h"
+#include "Interface.h"
 
-using namespace Masmorra;
-
-class Fim : public Ente
+namespace Masmorra
 {
-private:
-    sf::Font fonte;
-    sf::Text texto;
-    sf::RectangleShape fundo;
-    sf::Window* janela;
-public:
-    Fim();
-    ~Fim();
-    void executar();
-    void desenhar();
-};
+    namespace Interfaces
+    {
+        class Fim : public Interface
+        {
+        private:
+            std::string final;
+            std::string sair;
+            
+        public:
+            Fim(int id);
+            ~Fim();
+            void executar();
+            void inicializar();
+        };
+    }
+}
