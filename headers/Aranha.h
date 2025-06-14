@@ -1,7 +1,5 @@
 #pragma once
 #include "Inimigo.h"
-#include "GerenciadorTempo.h"
-#include "GerenciadorAnimacao.h"
 
 namespace Masmorra
 {
@@ -14,14 +12,15 @@ namespace Masmorra
 			private:
 				int mordida;
 				int veneno;
-				Gerenciadores::GerenciadorAnimacao* pGA;
 
 			public:
 				Aranha(
+					int id,
 					sf::Vector2f tamanho,
-					sf::Vector2f posicaoInicial,
+					sf::Vector2f posicao,
 					sf::Vector2f velocidade,
 					int vida,
+					int nivelMaldade,
 					sf::Vector2f alcance,
 					sf::Texture* textura,
 					sf::Vector2u imageCount
@@ -30,7 +29,7 @@ namespace Masmorra
 				void executar();
 				void morder(Jogador* pJ);
 				void aplicarVeneno();
-				void interagir(Jogador* pJ); // Inimigar
+				void danificar(Jogador* pJ); 
 			};
 		}
 	}
