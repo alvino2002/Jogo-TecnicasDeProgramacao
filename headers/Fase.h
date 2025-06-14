@@ -27,8 +27,8 @@ namespace Masmorra
 			virtual void criarInimigos() = 0;
 			virtual void executar() = 0;
 			void setFimDaFase(bool fim); // Fase acaba quando todos os inimigos forem derrotados
-			bool getFimDaFase();
-			int getQtdeJogadores();
+			bool getFimDaFase()const;
+			int getQtdeJogadores()const;
 		};
 	}
 }
