@@ -16,12 +16,16 @@ namespace Masmorra
 				static Cavaleiro* pCavaleiro;
 				static Curandeira* pCurandeira;
 				sf::Vector2f alcance;
+				int nivelDeMaldade;
 
 			public:
-				Inimigo(sf::Vector2f tamanho,
+				Inimigo(
+					int id,
+					sf::Vector2f tamanho,
 					sf::Vector2f posicaoInicial,
 					sf::Vector2f velocidade,
 					int vida,
+					int nivelDeMal,
 					sf::Vector2f alcance
 				);
 				~Inimigo();
@@ -32,7 +36,7 @@ namespace Masmorra
 				void perseguir();
 				void andarDir();
 				void andarEsq();
-				virtual void interagir(Jogador* pJ) = 0;
+				virtual void danificar(Jogador* pJ) = 0;
 			};
 		}
 	}
