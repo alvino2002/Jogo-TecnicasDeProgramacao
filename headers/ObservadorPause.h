@@ -8,9 +8,13 @@ namespace Masmorra
 	{
 		class ObservadorPause : public Observador
 		{
+		private:
+			Masmorra::Interfaces::Pause* pPause;
+
 		public:
 			ObservadorPause();
 			~ObservadorPause();
+			void setPause(Masmorra::Interfaces::Pause* pP);
 			void notificarEvento(const std::string& evento);
 		};
 	}
