@@ -9,15 +9,23 @@ namespace Masmorra
 		{
 			class Jogador : public Personagem
 			{
-			protected:;
-					 sf::Clock tempoInvulneravel;
-					 float duracaoInvulneravel;
-					 bool invulneravel;
-					 sf::Vector2f velAtual;
-					 static int pontuacao;
+			protected:
+				sf::Clock tempoInvulneravel;
+				float duracaoInvulneravel;
+				bool invulneravel;
+				sf::Vector2f velAtual;
+				static int pontuacao;
+				float pulo;
 
 			public:
-				Jogador(sf::Vector2f tamanho, sf::Vector2f posicaoInicial, sf::Vector2f velocidade, int vida);
+				Jogador(
+					int id, 
+					sf::Vector2f tamanho, 
+					sf::Vector2f posicao,
+					sf::Vector2f velocidade, 
+					int vida, 
+					float pulo
+				);
 				~Jogador();
 				virtual void executar() = 0;;
 				void sofrerDano(int d);
@@ -32,6 +40,7 @@ namespace Masmorra
 				static void derrotarMago();
 				static void perderPonto();
 				static int getPontuacao();
+				static void setPontuacao(int pontos);
 			};
 		}
 	}
