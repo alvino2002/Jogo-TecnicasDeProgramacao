@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "Ente.h"
 
 namespace Masmorra
 {
@@ -18,7 +19,7 @@ namespace Masmorra
 			static GerenciadorGrafico* getGerenciadorGrafico();
 			void limparJanela();
 			void fecharJanela();
-			void desenharElementos(sf::Drawable& elemento);
+			void desenharEnte(Ente* pE);
 			void mostrarElementos();
 			const bool verificaJanelaAberta();
 		};
