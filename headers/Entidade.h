@@ -35,8 +35,8 @@ namespace Masmorra
 			void setPosicao(sf::Vector2f pos);
 			void setAtivo(bool at);
 			bool getAtivo()const;
-			float getPosicaoX();
-			float getPosicaoY();
+			float getPosicaoX()const;
+			float getPosicaoY()const;
 		};
 	}
 }
