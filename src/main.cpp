@@ -1,9 +1,9 @@
-#include "Principal.h"
+#include "MasmorraJogo.h"
 
 int main()
 {
-    Masmorra::Principal masmorra;
-    masmorra.rodarJogo();
+    Masmorra::MasmorraJogo jogo;
+    jogo.rodarJogo();
 
     return 0;
 }
