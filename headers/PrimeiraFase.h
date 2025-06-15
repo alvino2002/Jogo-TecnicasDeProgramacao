@@ -6,9 +6,6 @@
 #include "Jogador.h"
 #include "Caixa.h"
 #include "Lava.h"
-#include "GerenciadorColisao.h"
-#include "GerenciadorEvento.h"
-#include "GerenciadorTempo.h"
 #include "Cavaleiro.h"
 #include "Curandeira.h"
 #include "Mago.h"
@@ -23,15 +20,20 @@ namespace Masmorra
 		{
 		private:
 			bool avance;
+		
+
 		public:
-			PrimeiraFase(int qtdeJogadores);
+			PrimeiraFase(
+				int id, 
+				int qtdeJogadores
+			);
 			~PrimeiraFase();
 			void criarCenario();
 			void criarInimigos();
 			void criarObstaculos();
 			void executar();
 			void setAvance(bool avancar);
-			bool getAvance();
+			bool getAvance()const;
 		};
 	}
 }
