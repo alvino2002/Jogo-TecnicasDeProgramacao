@@ -5,6 +5,7 @@
 #include "GerenciadorEstado.h"
 #include "EstadoRanking.h"
 #include "EstadoFim.h"
+#include "Fase.h"
 
 
 using namespace Masmorra::Observadores;
