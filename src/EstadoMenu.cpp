@@ -2,11 +2,16 @@
 
 using namespace Masmorra::Estados;
 
+using namespace Masmorra::Interfaces;
+
+
+
 EstadoMenu::EstadoMenu():
 	Estado()
 {
-	pMenu = new Menu();
+	pMenu = new Menu(2);
 	pObs = new Observadores::ObservadorMenu();
+	pObs->setMenu(pMenu);
 }
 
 EstadoMenu::~EstadoMenu()
