@@ -7,14 +7,21 @@ using namespace Masmorra::Observadores;
 
 
 ObservadorFim::ObservadorFim():
-	Observador()
+	Observador(),
+	pFim()
 {
-
 }
 
 ObservadorFim::~ObservadorFim()
 {
+}
 
+void ObservadorFim::setFim(Masmorra::Interfaces::Fim* pF)
+{
+	if (pF)
+	{
+		pFim = pF;
+	}
 }
 
 void ObservadorFim::notificarEvento(const std::string& evento)
@@ -24,6 +31,5 @@ void ObservadorFim::notificarEvento(const std::string& evento)
 		Estados::EstadoMenu* estado = new Estados::EstadoMenu();
 		pGEs->adicionarEstado(estado);
 	}
-
 }
 
