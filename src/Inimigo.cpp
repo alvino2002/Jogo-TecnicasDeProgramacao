@@ -6,15 +6,17 @@ using namespace Masmorra::Entidades::Personagens;
 
 
 Inimigo::Inimigo(
+	int id,
 	sf::Vector2f tamanho,
-	sf::Vector2f posicaoInicial,
+	sf::Vector2f posicao,
 	sf::Vector2f velocidade,
 	int vida,
+	int nivelDeMal,
 	sf::Vector2f alcance
-	
 ) :
-	Personagem(tamanho, posicaoInicial, velocidade, vida),
-	alcance(alcance)
+	Personagem(id, tamanho, posicao, velocidade, vida),
+	alcance(alcance),
+	nivelDeMaldade(nivelDeMal)
 {
 }
 
@@ -38,7 +40,7 @@ void Inimigo::setCurandeira(Curandeira* pCu)
 	}
 }
 
-Jogador* Inimigo::getMaisProximo() // Qual jogador esta mais proximo?
+Jogador* Inimigo::getMaisProximo() // Jogador esta mais proximo
 {
 	if (pCavaleiro && pCurandeira)
 	{
@@ -54,7 +56,7 @@ Jogador* Inimigo::getMaisProximo() // Qual jogador esta mais proximo?
 			return pCavaleiro;
 		}
 	}
-	else // pCurandeira é nulo
+	else // pCurandeira é nulo, ou seja, apenas um jogador na fase
 	{
 		return pCavaleiro;
 	}
@@ -66,7 +68,7 @@ void Inimigo::perseguir()
 	Jogador* pJogador = static_cast<Jogador*>(getMaisProximo()); // Inimigo persegue o jogador mais proximo
 
 	if (fabs(pJogador->getCorpo().getPosition().y - corpo.getPosition().y) < 10.0f) // Começa a perseguir apenas se estiverem
-		//na mesma altura
+		//em alturas proximas
 	{
 		if (pJogador->getCorpo().getPosition().x > corpo.getPosition().x &&
 			fabs(pJogador->getCorpo().getPosition().x - getCorpo().getPosition().x) <= alcance.x)
