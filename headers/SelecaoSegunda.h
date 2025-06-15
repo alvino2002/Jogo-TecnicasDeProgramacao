@@ -1,24 +1,25 @@
 #pragma once
-#include "Ente.h"
+#include "Interface.h"
 
 
 namespace Masmorra
 {
-	class SelecaoSegunda : public Ente
+	namespace Interfaces
 	{
-	private:
-		sf::Font* fonte;
-		sf::Texture* imagem;
-		sf::Sprite* fundo;
-		std::vector<const char*> opcoes;
-		std::vector<sf::Vector2f> coordenadas;
-		std::vector<sf::Text> textos;
-		std::vector<std::size_t> tamanhos;
-	public:
-		SelecaoSegunda();
-		~SelecaoSegunda();
-		void desenhar();
-		void executar();
-	};
+		class SelecaoSegunda : public Interface
+		{
+		private:
+			std::vector<std::string> opcoes;
+			std::vector<sf::Vector2f> coordenadas;
+			std::vector<std::size_t> tamanhos;
+	
+
+		public:
+			SelecaoSegunda(int id);
+			~SelecaoSegunda();
+			void inicializar();
+			void executar();
+		};
+	}
 }
 
