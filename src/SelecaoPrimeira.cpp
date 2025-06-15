@@ -3,26 +3,24 @@
 #include "GerenciadorTempo.h"
 
 
-using namespace Masmorra;
+using namespace Masmorra::Interfaces;
 
 
-SelecaoPrimeira::SelecaoPrimeira():
-	Ente()
+SelecaoPrimeira::SelecaoPrimeira(int id) :
+	Interface(id)
 {
-	fonte = new sf::Font();
-	imagem = new sf::Texture();
-	fundo = new sf::Sprite();
+	inicializar();
 }
 
 SelecaoPrimeira::~SelecaoPrimeira()
 {
 }
 
-void SelecaoPrimeira::desenhar()
+void SelecaoPrimeira::inicializar()
 {
 	/*Carregar fonte e textura*/
 	fonte->loadFromFile("Korcy.otf");
-	imagem->loadFromFile("menu_pause.png");
+	imagem->loadFromFile("menuInicial_Sprite.jpg");
 
 	/*Aplicar textura ao fundo*/
 	fundo->setTexture(*imagem);
@@ -35,14 +33,20 @@ void SelecaoPrimeira::desenhar()
 	fundo->setPosition(0.0f, 0.0f);
 
 	/*Inicializar os textos*/
-	opcoes = { "Modo" ,"1 P (1)", "2 P (2)", "Voltar (V)" };
+	opcoes.clear();
+	opcoes.push_back("Modo");
+	opcoes.push_back("1P (1)");
+	opcoes.push_back("2P (2)");
+	opcoes.push_back("Voltar (V)");
+
 	textos.resize(4);
+
 	coordenadas =
 	{
-		{300.f, 80.f},    // Título
-		{310.f, 220.f},   // Botão 1
-		{310.f, 300.f},   // Botão 2
-		{310.f, 380.f}    // Botão 3
+		{310.f, 50.f},    // Título
+		{350.f, 215.f},   // Botão 1
+		{350.f, 295.f},   // Botão 2
+		{320.f, 373.f}    // Botão 3
 	};
 	tamanhos = { 60, 36, 36, 36 };
 
@@ -56,30 +60,12 @@ void SelecaoPrimeira::desenhar()
 		textos[i].setOutlineColor(sf::Color::Black);
 		textos[i].setOutlineThickness(2);
 	}
-
-	sf::Sprite sprite;
-	sf::Texture texture;
-
-	pGG->desenharElementos(*fundo);
-
-	pGT->atualizar();
-
-	for (auto& t : textos)
-	{
-		pGG->desenharElementos(t);
-	}
 }
 
 
 void SelecaoPrimeira::executar()
 {
-	/*Centralizar a camera*/
-	sf::RenderWindow* janela = pGG->getJanela();
-	janela->setView(janela->getDefaultView());
-
-	pGG->limparJanela();
-
+	pGT->reiniciar();
 	desenhar();
-
 	pGG->mostrarElementos();
 }
