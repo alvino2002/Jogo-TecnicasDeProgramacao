@@ -1,5 +1,4 @@
 #pragma once
-#include "Estado.h"
 #include "Interface.h"
 
 namespace Masmorra
@@ -9,8 +8,9 @@ namespace Masmorra
         class Fim : public Interface
         {
         private:
-            std::string final;
-            std::string sair;
+            sf::RenderWindow* janela;
+            sf::Text titulo;
+            sf::Text instrucao;
             
         public:
             Fim(int id);
