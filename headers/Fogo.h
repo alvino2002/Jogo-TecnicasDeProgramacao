@@ -26,6 +26,7 @@ namespace Masmorra
 			~Fogo();
 			void executar();
 			void atingir(Personagens::Jogador* pJ);
+			void setSentido(bool sent);
 		};
 	}
 }
