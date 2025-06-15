@@ -5,13 +5,12 @@
 using namespace Masmorra::Entidades::Obstaculos;
 
 
-Plataforma::Plataforma(const sf::Vector2f tam, sf::Vector2f posIni, sf::Texture* texture, sf::Vector2u imageCount) :
-	Obstaculo(tam, posIni)
+Plataforma::Plataforma(int id, sf::Vector2f tam, sf::Vector2f posicao, sf::Texture* texture, sf::Vector2u imageCount, bool arm) :
+	Obstaculo(id, tam, posicao),
+	armadilha(arm)
 {
-	pGA = new Gerenciadores::GerenciadorAnimacao();
 	corpo.setTexture(texture);
 	corpo.setTextureRect(sf::IntRect(0, 0, tam.x, tam.y));
-	pGG->desenharElementos(corpo);
 }
 
 Plataforma::~Plataforma()
@@ -20,11 +19,13 @@ Plataforma::~Plataforma()
 
 void Plataforma::executar()
 {
-	aplicarGravidade(pGT->getDeltaTempo());
+	float deltaTempo = pGT->getDeltaTempo();
+	aplicarGravidade(deltaTempo);
+	flutuar(deltaTempo);
 }
 
 
-void Plataforma::interagir(Entidade* pE)
+void Plataforma::obstacularizar(Entidade* pE)
 {
 	sf::Vector2f posicao_Entidade = pE->getCorpo().getPosition();
 	sf::Vector2f tamanho_Entidade = pE->getCorpo().getSize();
@@ -47,15 +48,30 @@ void Plataforma::interagir(Entidade* pE)
 	{
 		if (posicao_Entidade.y < posicao_Plataforma.y)
 		{
-				posicao_Entidade.y += pGC->getIntersectY();
-				pE->setNaSuperficie(true);
+			if (armadilha)
+			{
+				Personagens::Jogador* pJ = static_cast<Personagens::Jogador*>(pE);
+				if (pJ->getInvulneravel() == false)
+				{
+					pJ->sofrerDano(1);
+					pJ->invulnerabilizar();
+				}
+			}
+			posicao_Entidade.y = posicao_Plataforma.y - tamanho_Entidade.y;
+			pE->setNaSuperficie(true);
 		}
 		else
 		{
-			posicao_Entidade.y -= pGC->getIntersectY();
+			posicao_Entidade.y = posicao_Plataforma.y + tamanho_Plataforma.y;
 		}
 		pE->setVelocidadeY(0.0f);
 	}
 
 	pE->setPosicao(posicao_Entidade);
+}
+
+
+void Plataforma::flutuar(float deltaTempo)
+{
+	corpo.move(0.0f, -velocidade.y * deltaTempo);
 }
