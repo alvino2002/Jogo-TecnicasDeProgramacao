@@ -20,8 +20,6 @@ GerenciadorEstado* GerenciadorEstado::getGerenciadorEstado()
 	}
 }
 
-
-
 GerenciadorEstado::~GerenciadorEstado()
 {
 }
@@ -31,7 +29,6 @@ void GerenciadorEstado::adicionarEstado(Estados::Estado* estado)
 	if (estado)
 	{
 		pilhaEstados.push(estado);
-
 	}
 }
 
