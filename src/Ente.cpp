@@ -2,10 +2,10 @@
 #include "GerenciadorColisao.h"
 #include "GerenciadorTempo.h"
 #include "GerenciadorGrafico.h"
-#include <iostream>
 
 
 using namespace Masmorra;
+
 
 Ente::Ente(int i) :
 	id(i)
@@ -21,7 +21,7 @@ Ente::~Ente()
 {
 }
 
-int Ente::getId()
+int Ente::getId()const
 { 
 	return id;
 }
