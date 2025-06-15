@@ -1,14 +1,14 @@
 #include "Obstaculo.h"
 
 
-
 using namespace Masmorra::Entidades::Obstaculos;
 
 
-Obstaculo::Obstaculo(const sf::Vector2f tam, sf::Vector2f posIni) :
-	Entidade(tam, posIni)
+Obstaculo::Obstaculo(int id, sf::Vector2f tam, sf::Vector2f posicao) :
+	Entidade(id, tam, posicao)
 {
 }
+
 Obstaculo::~Obstaculo()
 {
 }
