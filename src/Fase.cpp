@@ -1,61 +1,59 @@
 #include "Fase.h"
-#include <iostream>
 #include "GerenciadorColisao.h"
 
 
 using namespace Masmorra::Fases;
 
 
-Fase::Fase(int qtdeJogadores):
-	Ente(),
-	listaEntidades(),
+Fase::Fase(int id, int qtdeJogadores):
+	Ente(id),
 	camera(),
 	numeroInimigos(),
 	fimDaFase(false),
 	quantidadeJogadores(qtdeJogadores)
 {
-	if (qtdeJogadores == 1)
+	if (quantidadeJogadores == 1)
 	{
 		sf::Texture* texturaJog1 = new sf::Texture();
 		texturaJog1->loadFromFile("knight_Sprite.png");
-		pCav = new Entidades::Personagens::Cavaleiro(
+		pCav = new Entidades::Personagens::Cavaleiro(1,
 			sf::Vector2f(50.f, 70.f),
 			sf::Vector2f(100.f, 4800.f),
 			sf::Vector2f(200.f, 0.f),
-			10, texturaJog1, sf::Vector2u(4, 4));
+			100, 80.0f, texturaJog1, sf::Vector2u(4, 4));
 
 		pCur = nullptr;
 
-		pGC->incluirJogador(pCav);
 		Entidades::Obstaculos::Obstaculo::setCavaleiro(pCav); // Inimigos conhecerem o cavaleiro
 		Entidades::Personagens::Inimigo::setCavaleiro(pCav);
-	
+
+		pGC->incluirJogador(pCav);
+
 	}
 
-	else // qtdeJogadores == 2;
+	else // quantidadeJogadores == 2;
 	{
 		sf::Texture* texturaJog1 = new sf::Texture();
 		texturaJog1->loadFromFile("knight_Sprite.png");
-		pCav = new Entidades::Personagens::Cavaleiro(
+		pCav = new Entidades::Personagens::Cavaleiro(1,
 			sf::Vector2f(50.f, 70.f),
 			sf::Vector2f(100.f, 4800.f),
 			sf::Vector2f(200.f, 0.f),
-			10, texturaJog1, sf::Vector2u(4, 4));
+			100, 80.0f, texturaJog1, sf::Vector2u(4, 4));
 		sf::Texture* texturaJog2 = new sf::Texture();
 
 		texturaJog2->loadFromFile("healer_Sprite.png");
-		pCur = new Entidades::Personagens::Curandeira(
+		pCur = new Entidades::Personagens::Curandeira(1,
 			sf::Vector2f(50.f, 70.f),
 			sf::Vector2f(120.f, 4800.f),
 			sf::Vector2f(200.f, 0.f),
-			30, texturaJog2, sf::Vector2u(3, 4));
+			30, 80.0f, texturaJog2, sf::Vector2u(3, 4));
 
 		Entidades::Obstaculos::Obstaculo::setCurandeira(pCur); // Obstaculos conhecerem a curandeira
 		Entidades::Personagens::Inimigo::setCurandeira(pCur);
 
 		Entidades::Obstaculos::Obstaculo::setCavaleiro(pCav); // Inimigos conhecerem o cavaleiro
 		Entidades::Personagens::Inimigo::setCavaleiro(pCav);
-
 
 		pCur->setCavaleiro(pCav);
 
@@ -74,12 +72,13 @@ void Fase::setFimDaFase(bool fim)
 	fimDaFase = fim;
 }
 
-bool Fase::getFimDaFase()
+bool Fase::getFimDaFase()const
 {
 	return fimDaFase;
 }
 
-int Fase::getQtdeJogadores()
+int Fase::getQtdeJogadores()const
 {
 	return quantidadeJogadores;
 }
+
