@@ -1,21 +1,21 @@
 #include "Entidade.h"
-#include "Plataforma.h"
+
 
 
 using namespace Masmorra::Entidades;
 
 
-Entidade::Entidade(const sf::Vector2f tam, sf::Vector2f posIni, sf::Vector2f vel) :
-	Ente(),
+Entidade::Entidade(int id, sf::Vector2f tam, sf::Vector2f posicao, sf::Vector2f vel) :
+	Ente(id),
 	tamanho(),
-	posicaoInicial(),
+	posicao(),
 	corpo(),
 	gravidade(980.f),
 	naSuperficie(false),
 	ativo(true)
 {
 	corpo.setSize(tam);
-	corpo.setPosition(posIni);
+	corpo.setPosition(posicao);
 	velocidade = vel;
 }
 
@@ -32,11 +32,8 @@ sf::RectangleShape& Entidade::getCorpo()
 
 void Entidade::aplicarGravidade(float deltaTime)
 {
-	if (dynamic_cast<Obstaculos::Plataforma*>(this) == nullptr) // Plataforma nao pode sofrer acao da gravidade
-	{
-		velocidade.y += gravidade * deltaTime;
-		corpo.move(0.0f, velocidade.y * deltaTime);
-	}
+	velocidade.y += gravidade * deltaTime;
+	corpo.move(0.0f, velocidade.y * deltaTime);
 }
 
 float Entidade::getVelocidadeX()const
@@ -87,3 +84,12 @@ bool Entidade::getAtivo()const
 	return ativo;
 }
 
+float Entidade::getPosicaoX()const
+{
+	return corpo.getPosition().x;
+}
+
+float Entidade::getPosicaoY()const
+{
+	return corpo.getPosition().y;
+}
