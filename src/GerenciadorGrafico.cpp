@@ -1,7 +1,12 @@
 #include "GerenciadorGrafico.h"
+#include "Ente.h"
+#include "Entidade.h"
+#include "Interface.h"
 
 
 using namespace Masmorra::Gerenciadores;
+
+using namespace Masmorra::Interfaces;
 
 
 GerenciadorGrafico::GerenciadorGrafico():
@@ -42,9 +47,27 @@ void GerenciadorGrafico::fecharJanela()
 	janela->close();
 }
 
-void GerenciadorGrafico::desenharElementos(sf::Drawable& elemento)
-{	
-	janela->draw(elemento);
+void GerenciadorGrafico::desenharEnte(Ente* pE)
+{
+	if (pE->getId() == 1) // Ente fisico (Personagem, Obstaculo,...)
+	{
+		Entidades::Entidade* pEnt = static_cast<Entidades::Entidade*>(pE);
+		janela->draw(pEnt->getCorpo());
+	}
+
+	else // Ente nao fisico (Menu, Pause,...)
+	{
+		Interface* pInt = static_cast<Interface*> (pE);
+
+		janela->draw(pInt->getFundo());
+
+		const std::vector<sf::Text>& textos = pInt->getTextos();
+
+		for (std::vector<sf::Text>::const_iterator it = textos.begin(); it != textos.end(); it++) 
+		{
+			janela->draw(*it);
+		}
+	}
 }
 
 void GerenciadorGrafico::mostrarElementos()
