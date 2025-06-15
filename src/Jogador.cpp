@@ -1,15 +1,17 @@
 #include "Jogador.h"
 #include "GerenciadorTempo.h"
-#include <iostream>
+
 
 using namespace Masmorra::Entidades::Personagens;
 
-Jogador::Jogador(sf::Vector2f tamanho, sf::Vector2f posicaoInicial, sf::Vector2f velocidade, int vida) :
-	Personagem(tamanho, posicaoInicial, velocidade, vida),
+
+Jogador::Jogador(int id, sf::Vector2f tamanho, sf::Vector2f posicao, sf::Vector2f velocidade, int vida, float pul) :
+	Personagem(id, tamanho, posicao, velocidade, vida),
 	tempoInvulneravel(),
 	duracaoInvulneravel(2.0f),
 	invulneravel(false),
-	velAtual()
+	velAtual(),
+	pulo(pul)
 {
 }
 
@@ -28,7 +30,7 @@ void Jogador::setInvulneravel(bool imune)
 	invulneravel = imune;
 }
 
-bool Jogador::getInvulneravel()
+bool Jogador::getInvulneravel()const
 {
 	return invulneravel;
 }
@@ -67,7 +69,7 @@ void Jogador::setPosicao(sf::Vector2f pos)
 	}
 }
 
-float Jogador::getVelocidadeAtualX()
+float Jogador::getVelocidadeAtualX()const
 {
 	return velAtual.x;
 }
@@ -77,6 +79,10 @@ void Jogador::setVelocidadeAtualX(float vX)
 	velAtual.x = vX;
 }
 
+void Jogador::setPontuacao(int pontos)
+{
+	pontuacao = pontos;
+}
 
 int Jogador::getPontuacao()
 {
