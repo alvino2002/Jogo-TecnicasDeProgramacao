@@ -8,10 +8,9 @@ namespace Masmorra
 		class Menu : public Interface
 		{
 		private:
-			std::string menu;
-			std::string fase1;
-			std::string fase2;
-			std::string ranking;
+			std::vector<std::string> opcoes;
+			std::vector<sf::Vector2f> coordenadas;
+			std::vector<std::size_t> tamanhos;
 
 		public:
 			Menu(int id);
