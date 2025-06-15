@@ -1,20 +1,19 @@
 #include "Caixa.h"
-#include <iostream>
+
 
 using namespace Masmorra::Entidades::Obstaculos;
 
 
-Caixa::Caixa(const sf::Vector2f tam, sf::Vector2f posIni, sf::Texture* texture, sf::Vector2u imageCount) :
-	Obstaculo(tam, posIni)
+Caixa::Caixa(int id, sf::Vector2f tam, sf::Vector2f posicao, sf::Texture* texture, sf::Vector2u imageCount) :
+	Obstaculo(id, tam, posicao),
+	lentidao(0.5f)
 {
-	pGA = new Gerenciadores::GerenciadorAnimacao();
 	corpo.setTexture(texture);
 	pGA->pegarAnimacao(texture, imageCount);
 }
 
 Caixa::~Caixa()
 {
-	pGA = nullptr;
 }
 
 void Caixa::executar()
@@ -24,10 +23,9 @@ void Caixa::executar()
 		float deltaTime = pGT->getDeltaTempo();
 		aplicarGravidade(deltaTime);
 	}
-	naSuperficie = false;
 }
 
-void Caixa::interagir(Entidade* pE)
+void Caixa::obstacularizar(Entidade* pE)
 {
 	sf::Vector2f posicao_Entidade = pE->getCorpo().getPosition();
 	sf::Vector2f tamanho_Entidade = pE->getCorpo().getSize();
@@ -42,7 +40,7 @@ void Caixa::interagir(Entidade* pE)
 		{
 			float deltaTime = pGT->getDeltaTempo();
 			float velocidadeX = pCavaleiro->getVelocidadeX();
-			float deslocamentoCaixa = velocidadeX * 0.5f * deltaTime; // Ha uma desaceleracao ao empurrar
+			float deslocamentoCaixa = velocidadeX * lentidao * deltaTime; // Ha uma desaceleracao ao empurrar
 
 			if (posicao_Entidade.x < posicao_Caixa.x) // Empurra para direita
 			{
@@ -54,10 +52,7 @@ void Caixa::interagir(Entidade* pE)
 				posicao_Entidade.x = posicao_Caixa.x + tamanho_Caixa.x;
 				posicao_Caixa.x -= deslocamentoCaixa;
 			}
-
-			getCorpo().setPosition(posicao_Caixa);
 		}
-
 		else 
 		{
 			if (posicao_Entidade.x < posicao_Caixa.x)
@@ -69,6 +64,7 @@ void Caixa::interagir(Entidade* pE)
 				posicao_Entidade.x -= pGC->getIntersectX();
 			}
 		}
+		getCorpo().setPosition(posicao_Caixa);
 	}
 	else // Colisão vertical
 	{
@@ -82,11 +78,7 @@ void Caixa::interagir(Entidade* pE)
 		{
 			posicao_Entidade.y = posicao_Caixa.y + tamanho_Caixa.y;
 		}
+		pE->setVelocidadeY(0.0f);
 	}
-
 	pE->setPosicao(posicao_Entidade);
-
 }
-
-
-
