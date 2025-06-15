@@ -32,7 +32,7 @@ namespace Masmorra
 	public:
 		Ente(int i);
 		virtual ~Ente();
-		int getId();
+		int getId()const;
 		void desenhar();
 	};
 }
