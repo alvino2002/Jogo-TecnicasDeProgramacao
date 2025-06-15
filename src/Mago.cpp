@@ -6,22 +6,34 @@
 using namespace Masmorra::Entidades::Personagens;
 
 
-Mago::Mago(
+Mago::Mago(int id,
 	sf::Vector2f tamanho,
-	sf::Vector2f posicaoInicial,
+	sf::Vector2f posicao,
 	sf::Vector2f velocidade,
 	int vida,
+	int nivelDeMaldade,
 	sf::Vector2f alcance,
 	sf::Texture* textura,
 	sf::Vector2u imageCount
 ) :
-	Inimigo(tamanho, posicaoInicial, velocidade, vida, alcance),
+	Inimigo(id, tamanho, posicao, velocidade, vida,  nivelDeMaldade, alcance),
+
 	tempoLancamento(),
-	recargaLancamento(10.0f),
-	lancamentoPronto(false)
+	lancamentoPronto(false),
+	chamas(1)
 {
+	if (nivelDeMaldade == 1)
+	{
+		olhandoDireita = true;
+		recargaLancamento = 5.0f;
+	}
+	else
+	{
+		olhandoDireita = false;
+		recargaLancamento = 3.0f;
+	}
+
 	listaDeProjeteis.clearLista();
-	pGA = new Gerenciadores::GerenciadorAnimacao();
 	corpo.setTexture(textura);
 	pGA->pegarAnimacao(textura, imageCount);
 }
@@ -41,8 +53,15 @@ void Mago::executar()
 	{
 		velocidade.y = 0;
 	}
-
-	pGA->atualizar(1, olhandoDireita);
+	
+	if (nivelDeMaldade == 1) 
+	{
+		pGA->atualizar(1, true);
+	}
+	else
+	{
+		pGA->atualizar(1, false); // Mago olhando para esquerda
+	}
 
 	if (tempoLancamento.getElapsedTime().asSeconds() >= recargaLancamento)
 	{
@@ -54,7 +73,6 @@ void Mago::executar()
 		criarFogo();
 		tempoLancamento.restart();
 		lancamentoPronto = false;
-		pGA->atualizar(1, olhandoDireita);
 	}
 
 	corpo.setTextureRect(pGA->getFrameAtual());
@@ -65,7 +83,6 @@ void Mago::executar()
 		Jogador::derrotarMago();
 		pCavaleiro->operator++();
 	}
-
 }
 
 void Mago::criarFogo()
@@ -73,13 +90,25 @@ void Mago::criarFogo()
 	sf::Texture* fogoTextura = new sf::Texture();
 	fogoTextura->loadFromFile("fireball_Sprite.png");
 
-	Fogo* fogo = new Fogo(sf::Vector2f(30.0f, 30.0f), corpo.getPosition(), sf::Vector2f(-100.0f, 0.0f), fogoTextura, sf::Vector2u(1, 1));
-	pGC->incluirProjetil(fogo);
-	fogo->executar();
+	if (nivelDeMaldade == 1) // Olhando para direita
+	{
+		Fogo* fogo = new Fogo(1, sf::Vector2f(30.0f, 30.0f), corpo.getPosition(), 
+			sf::Vector2f(100.0f, 0.0f), fogoTextura, sf::Vector2u(1, 1), true);
+		pGC->incluirProjetil(fogo);
+		fogo->executar();
+	}
+
+	else
+	{
+		Fogo* fogo = new Fogo(1, sf::Vector2f(30.0f, 30.0f), corpo.getPosition(), 
+			sf::Vector2f(-100.0f, 0.0f), fogoTextura, sf::Vector2u(1, 1), false);
+		pGC->incluirProjetil(fogo);
+		fogo->executar();
+	}
 }
 
 
-void Mago::interagir(Jogador* pJ)
+void Mago::danificar(Jogador* pJ)
 {
 	Entidades::Personagens::Cavaleiro* cavaleiro = dynamic_cast<Entidades::Personagens::Cavaleiro*>(pJ);
 
@@ -87,5 +116,19 @@ void Mago::interagir(Jogador* pJ)
 	{
 		vida -= cavaleiro->getDano();
 		cavaleiro->setEstaAtacando(false);
+	}
+
+	else
+	{
+		queimar(pJ);
+	}
+}
+
+void Mago::queimar(Jogador* pJ)
+{
+	if (pJ->getInvulneravel() == false)
+	{
+		pJ->sofrerDano(chamas);
+		pJ->invulnerabilizar();
 	}
 }
