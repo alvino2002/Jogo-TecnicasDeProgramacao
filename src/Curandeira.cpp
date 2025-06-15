@@ -4,10 +4,9 @@
 using namespace Masmorra::Entidades::Personagens;
 
 
-Curandeira::Curandeira(sf::Vector2f tamanho, sf::Vector2f posicaoInicial, sf::Vector2f velocidade, int vida,
+Curandeira::Curandeira(int id, sf::Vector2f tamanho, sf::Vector2f posicao, sf::Vector2f velocidade, int vida, float pulo,
 	sf::Texture* texture, sf::Vector2u imageCount) :
-	Jogador(tamanho, posicaoInicial, velocidade, vida),
-	pulo(80.0f),
+	Jogador(id, tamanho, posicao, velocidade, vida, pulo),
 	olhandoDireita(true),
 	tempoCura(),
 	recargaCura(30.0f),
@@ -15,14 +14,12 @@ Curandeira::Curandeira(sf::Vector2f tamanho, sf::Vector2f posicaoInicial, sf::Ve
 	curaAliado(false),
 	pCavaleiro()
 {
-	pGA = new Gerenciadores::GerenciadorAnimacao();
 	corpo.setTexture(texture);
 	pGA->pegarAnimacao(texture, imageCount);
 }
 
 Curandeira::~Curandeira()
 {
-	pGA = nullptr;
 	pCavaleiro = nullptr;
 }
 
