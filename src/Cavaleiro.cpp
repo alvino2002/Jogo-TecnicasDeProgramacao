@@ -1,15 +1,14 @@
 #include "Cavaleiro.h"
-#include <iostream>
+
 
 using namespace Masmorra::Entidades::Personagens;
 
 
-Cavaleiro::Cavaleiro(sf::Vector2f tamanho, sf::Vector2f posicaoInicial, sf::Vector2f velocidade, int vida,
+Cavaleiro::Cavaleiro(int id, sf::Vector2f tamanho, sf::Vector2f posicao, sf::Vector2f velocidade, int vida, float pulo,
 	                 sf::Texture* texture, sf::Vector2u imageCount):
-	Jogador(tamanho, posicaoInicial, velocidade, vida),
+	Jogador(id, tamanho, posicao, velocidade, vida, pulo),
 	estaAtacando(false),
 	dano(2),
-	pulo(80.0f),
 	energia(20),
 	tempoRecuperar(),
 	duracaoRecuperacao(3.0f),
@@ -17,21 +16,18 @@ Cavaleiro::Cavaleiro(sf::Vector2f tamanho, sf::Vector2f posicaoInicial, sf::Vect
 	recargaAtaque(0.5f),
 	ataquePronto(true)
 {
-	pGA = new Gerenciadores::GerenciadorAnimacao();
 	corpo.setTexture(texture);
 	pGA->pegarAnimacao(texture, imageCount);
-
 }
 
 Cavaleiro::~Cavaleiro()
 {
-	pGA = nullptr;
 }
 
 void Cavaleiro::executar()
 {
 
-	std::cout << inimigosEliminados << std::endl;
+	//std::cout << vida << std::endl;
 
 	velAtual.x = 0.0f;
 
