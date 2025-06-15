@@ -17,6 +17,7 @@ namespace Masmorra
 				sf::Clock tempoLancamento;  // Temporizador para lancar o projetil
 				float recargaLancamento;  // Tempo de espera entre recargas
 				bool lancamentoPronto;
+				int chamas;
 
 			public:
 				Mago(
@@ -34,6 +35,7 @@ namespace Masmorra
 				void executar();
 				void criarFogo();
 				void danificar(Jogador* pJ);
+				void queimar(Jogador* pJ);
 			};
 		}
 	}
