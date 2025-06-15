@@ -5,14 +5,12 @@
 using namespace Masmorra::Entidades::Obstaculos;
 
 
-Lava::Lava(const sf::Vector2f tam, sf::Vector2f posIni, sf::Texture* texture, sf::Vector2u imageCount):
-	Obstaculo(tam, posIni),
+Lava::Lava(int id, sf::Vector2f tam, sf::Vector2f posicao, sf::Texture* texture, sf::Vector2u imageCount):
+	Obstaculo(id, tam, posicao),
 	dano(2)
 {
-	pGA = new Gerenciadores::GerenciadorAnimacao();
 	corpo.setTexture(texture);
 	corpo.setTextureRect(sf::IntRect(0, 0, tam.x, tam.y));
-	pGG->desenharElementos(corpo);
 }
 
 Lava::~Lava()
@@ -29,7 +27,7 @@ void Lava::executar()
 
 }
 
-void Lava::interagir(Entidade* pE)
+void Lava::obstacularizar(Entidade* pE)
 {
 	sf::Vector2f posicao_Jogador = pE->getCorpo().getPosition();
 	sf::Vector2f tamanho_Jogador = pE->getCorpo().getSize();
@@ -70,4 +68,3 @@ void Lava::interagir(Entidade* pE)
 	}
 	pE->setPosicao(posicao_Jogador);
 }
-
