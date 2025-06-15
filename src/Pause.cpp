@@ -3,14 +3,14 @@
 #include "GerenciadorGrafico.h"
 #include "GerenciadorTempo.h"
 
-using namespace Masmorra;
 
-Pause::Pause() :
-	Ente()
+using namespace Masmorra::Interfaces;
+
+
+Pause::Pause(int id) :
+	Interface(id)
 {
-	fonte = new sf::Font();
-	imagem = new sf::Texture();
-	fundo = new sf::Sprite();
+	inicializar();
 }
 
 Pause::~Pause()
@@ -24,11 +24,11 @@ Pause::~Pause()
 }
 
 
-void Pause::desenhar()
+void Pause::inicializar()
 {
 	/*Carregar fonte e textura*/
 	fonte->loadFromFile("Korcy.otf");
-	imagem->loadFromFile("menu_pause.png");
+	imagem->loadFromFile("menuPause_Sprite.jpg");
 
 	/*Aplicar textura ao fundo*/
 	fundo->setTexture(*imagem);
@@ -41,14 +41,20 @@ void Pause::desenhar()
 	fundo->setPosition(0.0f, 0.0f);
 
 	/*Inicializar os textos*/
-	opcoes = { "Pausado", "Continuar (ESC)", "", "Sair (S)" };
+	opcoes.clear();
+	opcoes.push_back("Pausado");
+	opcoes.push_back("Continuar (C)");
+	opcoes.push_back("");
+	opcoes.push_back("Sair (ESC)");
+
 	textos.resize(4);
+
 	coordenadas =
 	{
-		{300.f, 80.f},    // Título
-		{310.f, 220.f},   // Botão 1
-		{310.f, 300.f},   // Botão 2
-		{310.f, 380.f}    // Botão 3
+		{280.f, 80.f},    // Título
+		{275.f, 200.f},   // Botão 1
+		{300.f, 250.f},   // Botão 2 INEXISTENTE
+		{340.f, 290.f}    // Botão 3
 	};
 	tamanhos = { 60, 36, 36, 36 };
 
@@ -62,18 +68,6 @@ void Pause::desenhar()
 		textos[i].setOutlineColor(sf::Color::Black);
 		textos[i].setOutlineThickness(2);
 	}
-
-	sf::Sprite sprite;
-	sf::Texture texture;
-
-	pGG->desenharElementos(*fundo);
-
-	pGT->atualizar();
-
-	for (auto& t : textos) 
-	{	
-		pGG->desenharElementos(t);
-	}
 }
 
 
@@ -83,10 +77,7 @@ void Pause::executar()
 	sf::RenderWindow* janela = pGG->getJanela();
 	janela->setView(janela->getDefaultView());
 
-	pGG->limparJanela();
-
 	desenhar();
-
 	pGG->mostrarElementos();
 }
 
