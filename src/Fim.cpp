@@ -2,64 +2,65 @@
 #include "GerenciadorGrafico.h"
 
 
-using namespace Masmorra;
+using namespace Masmorra::Interfaces;
 
-Fim::Fim() 
+Fim::Fim(int id) :
+	Interface(id)
 {
-    janela = pGG->getJanela();
+	janela = pGG->getJanela();
 }
 
-Fim::~Fim() 
+Fim::~Fim()
 {
 }
 
-void Fim::desenhar()
+void Fim::inicializar()
 {
-    /*Fundo preto*/
-    fundo.setSize(sf::Vector2f(janela->getSize()));
-    fundo.setFillColor(sf::Color::Black);
+	/*Carregar fonte e textura*/
+	fonte->loadFromFile("Korcy.otf");
+	imagem->loadFromFile("fundo_preto.jpg");
 
-    /*Carregar fonte*/
-    fonte.loadFromFile("Korcy.otf");
+	/*Aplicar textura ao fundo*/
+	fundo->setTexture(*imagem);
 
-    /*Texto principal*/
-    texto.setFont(fonte);
-    texto.setString("FIM DO JOGO");
-    texto.setCharacterSize(60);
-    texto.setFillColor(sf::Color::Red);
-
-    /*Posicionar o texto na tela*/
-    sf::FloatRect limites = texto.getLocalBounds();
-    texto.setOrigin(limites.width / 2, limites.height / 2);
-    texto.setPosition(janela->getSize().x / 2.0f, janela->getSize().y / 2.0f - 120);
-
-    /*Instrucoes para sair*/
-    sf::Text textoInstrucoes;
-    textoInstrucoes.setFont(fonte);
-    textoInstrucoes.setString("(Aperte ESC para sair)");
-    textoInstrucoes.setCharacterSize(20); 
-    textoInstrucoes.setFillColor(sf::Color::White);
-
-    /*Posicionar*/
-    sf::FloatRect limitesInst = textoInstrucoes.getLocalBounds();
-    textoInstrucoes.setOrigin(limitesInst.width / 2, limitesInst.height / 2);
-    textoInstrucoes.setPosition(janela->getSize().x / 2.0f, janela->getSize().y / 2.0f + 120);
+	/*Ajuste da escala*/
+	sf::Vector2u tamanho = imagem->getSize();
+	float escalaX = 800.0f / tamanho.x;
+	float escalaY = 600.0f / tamanho.y;
+	fundo->setScale(escalaX, escalaY);
+	fundo->setPosition(0.0f, 0.0f);
 
 
-    pGG->desenharElementos(fundo);
-    pGG->desenharElementos(texto);
-    pGG->desenharElementos(textoInstrucoes);
+	/*Inicializar os textos*/
+	titulo.setFont(*fonte);
+	titulo.setString("FIM DO JOGO");
+	titulo.setCharacterSize(60);
+	titulo.setFillColor(sf::Color::Red);
+	titulo.setOutlineColor(sf::Color::Black);
+	titulo.setOutlineThickness(2);
+	titulo.setPosition(200.f, 60.f);
+	textos.push_back(titulo);
+
+
+	instrucao.setFont(*fonte);
+	instrucao.setString("(Aperte ESC para sair)");
+	instrucao.setCharacterSize(20);
+	instrucao.setFillColor(sf::Color::White);
+	instrucao.setOutlineColor(sf::Color::Black);
+	instrucao.setOutlineThickness(2);
+	instrucao.setPosition(280.f, 450.f);
+	textos.push_back(instrucao);
 }
 
 void Fim::executar()
 {
-    sf::RenderWindow* janela = pGG->getJanela();
-    janela->setView(janela->getDefaultView());
+	/*Centralizar a camera*/
+	sf::RenderWindow* janela = pGG->getJanela();
+	janela->setView(janela->getDefaultView());
 
-    pGG->limparJanela();
-   
-    desenhar();
-
-    pGG->mostrarElementos();
+	pGG->limparJanela();
+	inicializar();
+	desenhar();
+	pGG->mostrarElementos();
 }
 
