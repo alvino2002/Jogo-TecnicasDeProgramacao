@@ -7,8 +7,9 @@ using namespace Masmorra::Estados;
 EstadoFim::EstadoFim() :
 	Estado()
 {
-	pFim = new Fim();
+	pFim = new Masmorra::Interfaces::Fim(2);
 	pObs = new Observadores::ObservadorFim();
+	pObs->setFim(pFim);
 }
 
 EstadoFim::~EstadoFim()
