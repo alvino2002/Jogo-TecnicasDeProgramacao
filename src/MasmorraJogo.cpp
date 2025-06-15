@@ -1,32 +1,39 @@
-#include "Principal.h"
+#include "MasmorraJogo.h"
 #include "EstadoMenu.h"
 
 
 using namespace Masmorra;
 
 
-Principal::Principal()
+MasmorraJogo::MasmorraJogo()
 {
 	pGEs = Gerenciadores::GerenciadorEstado::getGerenciadorEstado();
 	pGG = Gerenciadores::GerenciadorGrafico::getGerenciadorGrafico();
-	pGE = Gerenciadores::GerenciadorEvento::getGerenciadorEvento();
+	pGC = Gerenciadores::GerenciadorColisao::getGerenciadorColisao();
 }
 
-Principal::~Principal()
+MasmorraJogo::~MasmorraJogo()
 {
 	pGEs = nullptr;
 	pGG = nullptr;
-	pGE = nullptr;
 }
 
-void Principal::rodarJogo()
+void MasmorraJogo::rodarJogo()
 {
 	Estados::EstadoMenu* estado = new Estados::EstadoMenu();
 	pGEs->adicionarEstado(estado);
 
 	while (pGG->verificaJanelaAberta())
 	{
-		pGE->executar();
+		sf::Event evento;
+
+		while (pGG->getJanela()->pollEvent(evento))
+		{
+			if (evento.type == sf::Event::Closed)
+			{
+				pGG->fecharJanela();
+			}
+		}
 		pGEs->executar();
 	}
 }
