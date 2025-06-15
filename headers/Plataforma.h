@@ -1,6 +1,5 @@
 #pragma once
 #include "Obstaculo.h"
-#include "Fogo.h"
 #include "GerenciadorAnimacao.h"
 #include "GerenciadorGrafico.h"
 
@@ -13,12 +12,20 @@ namespace Masmorra
 			class Plataforma : public Obstaculo
 			{
 			private:
-				Gerenciadores::GerenciadorAnimacao* pGA;
+				bool armadilha; // Algumas plataformas têm armadilhas, provocando dano ao Jogador quando pisar nela
+
 			public:
-				Plataforma(const sf::Vector2f tam, sf::Vector2f posIni, sf::Texture* texture, sf::Vector2u imageCount);
+				Plataforma(
+					int id, 
+					sf::Vector2f tam, 
+					sf::Vector2f posIni, 
+					sf::Texture* texture, 
+					sf::Vector2u imageCount, 
+					bool arm);
 				~Plataforma();
 				void executar();
-				void interagir(Entidade* pE);
+				void obstacularizar(Entidade* pE);
+				void flutuar(float deltaTempo); // Funcao para "anular" a forca gravitacional
 			};
 
 		}
