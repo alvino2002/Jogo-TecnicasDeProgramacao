@@ -7,13 +7,13 @@
 using namespace Masmorra::Entidades;
 
 
-Fogo::Fogo(const sf::Vector2f tam, sf::Vector2f posIni, sf::Vector2f vel, 
+Fogo::Fogo(int id, sf::Vector2f tam, sf::Vector2f posicao, sf::Vector2f vel,
 	sf::Texture* textura,
-	sf::Vector2u imageCount) :
-	Entidade(tam, posIni, vel),
-	dano(3)
+	sf::Vector2u imageCount, bool direita) :
+	Entidade(id, tam, posicao, vel),
+	dano(3),
+	sentido(direita)
 {
-	pGA = new Gerenciadores::GerenciadorAnimacao();
 	corpo.setTexture(textura);
 	pGA->pegarAnimacao(textura, imageCount);
 }
@@ -26,13 +26,14 @@ void Fogo::executar()
 {
 	float deltaTime = pGT->getDeltaTempo();
 	corpo.move(velocidade * deltaTime);
+	aplicarGravidade(deltaTime * 0.005f);
 
-	pGA->atualizar(0, false);
+	pGA->atualizar(0, sentido);
 	corpo.setTextureRect(pGA->getFrameAtual());
 }
 
 
-void Fogo::interagir(Personagens::Jogador* pJ)
+void Fogo::atingir(Personagens::Jogador* pJ)
 {
 	if (pJ->getInvulneravel() == false)
 	{
@@ -41,4 +42,9 @@ void Fogo::interagir(Personagens::Jogador* pJ)
 	}
 
 	setAtivo(false); // Na colisao, é automaticamente excluido
+}
+
+void Fogo::setSentido(bool sent)
+{
+	sentido = sent;
 }
