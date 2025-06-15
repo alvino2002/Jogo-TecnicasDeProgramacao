@@ -3,12 +3,15 @@
 #include "GerenciadorTempo.h"
 #include "EstadoSelecaoPrim.h"
 #include "EstadoSelecaoSeg.h"
+#include "EstadoRanking.h"
 
 
 using namespace Masmorra::Observadores;
 
+
 ObservadorMenu::ObservadorMenu():
-	Observador()
+	Observador(),
+	pMenu()
 {
 }
 
@@ -17,6 +20,13 @@ ObservadorMenu::~ObservadorMenu()
 {
 }
 
+void ObservadorMenu::setMenu(Masmorra::Interfaces::Menu* pM)
+{
+	if (pM)
+	{
+		pMenu = pM;
+	}
+}
 
 void ObservadorMenu::notificarEvento(const std::string& evento)
 {
@@ -34,6 +44,8 @@ void ObservadorMenu::notificarEvento(const std::string& evento)
 
 	if (evento == "RANKING")
 	{
+		Estados::EstadoRanking* ranking = new Estados::EstadoRanking();
+		pGEs->adicionarEstado(ranking);
 	}
 }
 
