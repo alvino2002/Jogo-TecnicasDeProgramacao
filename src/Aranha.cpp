@@ -1,7 +1,6 @@
 #include "Aranha.h"
 
 
-
 using namespace Masmorra::Entidades::Personagens;
 
 
@@ -44,10 +43,6 @@ void Aranha::executar()
 	{
 		float deltaTime = pGT->getDeltaTempo();
 		aplicarGravidade(deltaTime);
-	}
-	else
-	{
-		velocidade.y = 0.0f;
 	}
 
 	perseguir(); // Persegue o jogador
