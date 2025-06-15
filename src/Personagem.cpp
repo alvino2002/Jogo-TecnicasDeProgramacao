@@ -4,8 +4,8 @@
 using namespace Masmorra::Entidades::Personagens;
 
 
-Personagem::Personagem(sf::Vector2f tam, sf::Vector2f posInicial, sf::Vector2f velocidade, int v) :
-	Entidade(tam, posInicial, velocidade),
+Personagem::Personagem(int id, sf::Vector2f tam, sf::Vector2f posicao, sf::Vector2f velocidade, int v) :
+	Entidade(id, tam, posicao, velocidade),
 	olhandoDireita(false),
 	vida(v)
 {
@@ -20,7 +20,7 @@ void Personagem::setVida(int v)
 	vida = v;
 }
 
-int Personagem::getVida()
+int Personagem::getVida()const
 {
 	return vida;
 }
@@ -33,7 +33,7 @@ void Personagem::setVivo(bool v)
 	}
 }
 
-bool Personagem::getOlhandoDireita()
+bool Personagem::getOlhandoDireita()const
 {
 	return olhandoDireita;
 }
