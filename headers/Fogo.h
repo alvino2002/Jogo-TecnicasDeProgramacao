@@ -11,6 +11,7 @@ namespace Masmorra
 		{
 		private:
 			int dano;
+			bool sentido;
 
 		public:
 			Fogo(
@@ -19,7 +20,8 @@ namespace Masmorra
 				sf::Vector2f posicao, 
 				sf::Vector2f vel,
 				sf::Texture* textura,
-				sf::Vector2u imageCount
+				sf::Vector2u imageCount,
+				bool direita
 			);
 			~Fogo();
 			void executar();
