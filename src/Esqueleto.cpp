@@ -1,29 +1,38 @@
 #include "Esqueleto.h"
+#include "Fase.h"
 
 
 using namespace Masmorra::Entidades::Personagens;
 
 
 Esqueleto::Esqueleto(
+	int id,
 	sf::Vector2f tamanho,
-	sf::Vector2f posicaoInicial,
+	sf::Vector2f posicao,
 	sf::Vector2f velocidade,
 	int vida,
-	sf::Vector2f range,
+	int nivelMaldade,
+	sf::Vector2f alcance,
 	sf::Texture* textura,
 	sf::Vector2u imageCount
 ):
-	Inimigo(tamanho, posicaoInicial, velocidade, vida, range),
-	batida(2)
+	Inimigo(id, tamanho, posicao, velocidade, vida, nivelMaldade, alcance)
 {
-	pGA = new Gerenciadores::GerenciadorAnimacao();
+	if (nivelDeMaldade == 1)
+	{
+		batida = 1;
+	}
+
+	else
+	{
+		batida = 2;
+	}
 	corpo.setTexture(textura);
 	pGA->pegarAnimacao(textura, imageCount);
 }
 
 Esqueleto::~Esqueleto()
 {
-	pGA = nullptr;
 }
 
 void Esqueleto::executar()
@@ -33,11 +42,6 @@ void Esqueleto::executar()
 		float deltaTime = pGT->getDeltaTempo();
 		aplicarGravidade(deltaTime);
 	}
-	else
-	{
-		velocidade.y = 0;
-	}
-
 	perseguir();
 
 	pGA->atualizar(1, olhandoDireita);
@@ -70,7 +74,8 @@ void Esqueleto::bater(Jogador* pJ)
 		pJ->invulnerabilizar();
 	}
 }
-void Esqueleto::interagir(Jogador* pJ)
+
+void Esqueleto::danificar(Jogador* pJ)
 {
 	Entidades::Personagens::Cavaleiro* cavaleiro = dynamic_cast<Entidades::Personagens::Cavaleiro*>(pJ);
 
