@@ -1,5 +1,6 @@
 #include "EstadoPrimeiraFase.h"
-#include <iostream>
+#include "GerenciadorColisao.h"
+
 
 using namespace Masmorra::Estados;
 
@@ -7,8 +8,9 @@ using namespace Masmorra::Estados;
 EstadoPrimeiraFase::EstadoPrimeiraFase(int qtdeJogadores) :
 	Estado()
 {
-	pPrimFase = new Fases::PrimeiraFase(qtdeJogadores);
+	pPrimFase = new Fases::PrimeiraFase(2, qtdeJogadores);
 	pObs = new Observadores::ObservadorPrimeiraFase();
+	pObs->setPrimeiraFase(pPrimFase);
 }
 
 EstadoPrimeiraFase::~EstadoPrimeiraFase()
@@ -31,9 +33,9 @@ void EstadoPrimeiraFase::verificarEvento()
 			pObs->notificarEvento("PAUSE");
 		}
 
-		if (pPrimFase->getFimDaFase()) // Fim do jogo
+		if (pPrimFase->getFimDaFase()) 
 		{
-			pObs->notificarEvento("FIM");
+			pObs->notificarEvento("FIM");// Fim do jogo
 		}
 
 		if (pPrimFase->getAvance())
