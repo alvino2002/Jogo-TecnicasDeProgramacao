@@ -1,23 +1,34 @@
 #include "Aranha.h"
 
 
+
 using namespace Masmorra::Entidades::Personagens;
 
 
 Aranha::Aranha(
+	int id,
 	sf::Vector2f tamanho,
-	sf::Vector2f posicaoInicial,
+	sf::Vector2f posicao,
 	sf::Vector2f velocidade,
 	int vida,
+	int nivelMaldade,
 	sf::Vector2f alcance,
 	sf::Texture* textura,
 	sf::Vector2u imageCount
 ) :
-	Inimigo(tamanho, posicaoInicial, velocidade, vida, alcance),
-	mordida(2),
-	veneno(1)
+	Inimigo(id, tamanho, posicao, velocidade, vida, nivelMaldade, alcance)
 {
-	pGA = new Gerenciadores::GerenciadorAnimacao();
+	if (nivelDeMaldade == 1)
+	{
+		mordida = 2;
+		veneno = 1;
+	}
+
+	else // nivelDeMaldade == 2
+	{
+		mordida = 3;
+		veneno = 2;
+	}
 	corpo.setTexture(textura);
 	pGA->pegarAnimacao(textura, imageCount);
 }
@@ -28,8 +39,8 @@ Aranha::~Aranha()
 }
 
 void Aranha::executar()
-{
-	if (!naSuperficie)
+{	
+	if (!naSuperficie) 
 	{
 		float deltaTime = pGT->getDeltaTempo();
 		aplicarGravidade(deltaTime);
@@ -49,7 +60,7 @@ void Aranha::executar()
 	{
 		setVivo(false);
 		Jogador::derrotarAranha();
-		pCavaleiro->operator++();
+		pCavaleiro->operator++(); 
 	}
 }
 
@@ -79,7 +90,7 @@ void Aranha::aplicarVeneno()
 	pCavaleiro->sofrerDano(veneno);
 }
 
-void Aranha::interagir(Jogador* pJ) // Ocorreu a colisao com o jogador
+void Aranha::danificar(Jogador* pJ) // Ocorreu a colisao com o jogador
 {
 	Cavaleiro* cavaleiro = dynamic_cast<Cavaleiro*>(pJ);
 
@@ -95,3 +106,5 @@ void Aranha::interagir(Jogador* pJ) // Ocorreu a colisao com o jogador
 		morder(pJ);
 	}
 }
+
+
