@@ -59,12 +59,12 @@ bool GerenciadorColisao::verificarColisao(Entidades::Entidade* e1, Entidades::En
 
 	delta_x = fabs((e1_Position.x + e1_HalfSize.x) - (e2_Position.x + e2_HalfSize.x));
 	delta_y = fabs((e1_Position.y + e1_HalfSize.y) - (e2_Position.y + e2_HalfSize.y));
-	intersect_x = (delta_x)-(e2_HalfSize.x + e1_HalfSize.x);
-	intersect_y = (delta_y)-(e2_HalfSize.y + e1_HalfSize.y);
+	intersect_x = (delta_x) - (e2_HalfSize.x + e1_HalfSize.x);
+	intersect_y = (delta_y) - (e2_HalfSize.y + e1_HalfSize.y);
 
-	if (intersect_x < 0.0f && intersect_y < 0.0f)
+	if (intersect_x < 0.0f && intersect_y < 0.0f) // Houve colisao
 	{
-		return true;
+		return true; 
 	}
 
 	return false;
@@ -76,7 +76,6 @@ void GerenciadorColisao::incluirProjetil(Entidades::Entidade* pF)
 	if (pF)
 	{
 		lista_projeteis.incluirEntidade(static_cast<Entidades::Entidade*>(pF));
-
 	}
 }
 
@@ -96,14 +95,12 @@ void GerenciadorColisao::incluirInimigo(Entidades::Personagens::Inimigo* pI)
 	}
 }
 
-
 void GerenciadorColisao::incluirObstaculo(Entidades::Obstaculos::Obstaculo* pO)
 {
 	if (pO)
 	{
 		lista_obst.incluirEntidade(static_cast<Entidades::Entidade*> (pO));
 	}
-
 }
 
 void GerenciadorColisao::colisaoJogadorInimigo()
@@ -116,7 +113,7 @@ void GerenciadorColisao::colisaoJogadorInimigo()
 			Entidades::Personagens::Jogador* jog = static_cast<Entidades::Personagens::Jogador*>(lista_jogadores.getEntidade(j));
 			if (verificarColisao(static_cast<Entidades::Entidade*>(ini), static_cast<Entidades::Entidade*>(jog)) && jog->getAtivo() && ini->getAtivo())
 			{
-				ini->interagir(jog);
+				ini->danificar(jog);
 			}
 		}
 	}
@@ -133,17 +130,15 @@ void GerenciadorColisao::colisaoJogadorProjetil()
 			if (verificarColisao(static_cast<Entidades::Entidade*>(fog), static_cast<Entidades::Entidade*>(jog)) && jog->getAtivo() && fog->getAtivo())
 			{
 				Entidades::Fogo* fogo = static_cast<Entidades::Fogo*>(fog);
-				fogo->interagir(jog);
+				fogo->atingir(jog);
 			}
 		}
 	}
 }
 
-
 void GerenciadorColisao::colisaoObstaculosEntidades()
 {
-
-	for (int j = 0; j < lista_ini.getTam(); j++)
+	for (int j = 0; j < lista_ini.getTam(); j++) // Inimigos
 	{
 		Entidades::Personagens::Inimigo* ini = static_cast<Entidades::Personagens::Inimigo*>(lista_ini.getEntidade(j));
 		bool colidiu = false;
@@ -153,47 +148,45 @@ void GerenciadorColisao::colisaoObstaculosEntidades()
 			Entidades::Obstaculos::Obstaculo* obst = static_cast<Entidades::Obstaculos::Obstaculo*>(lista_obst.getEntidade(i));
 			if (verificarColisao(ini, obst) && ini->getAtivo())
 			{
-				obst->interagir(ini);
+				obst->obstacularizar(ini);
 				colidiu = true;
-				break; // Se ja ha colisao com um obstaculo, nao necessita verificar com os outros
 			}
 		}
-
 		if (!colidiu)
 		{
 			ini->setNaSuperficie(false);
 		}
 	}
 
-	for (int j = 0; j < lista_jogadores.getTam(); j++) 
+
+	for (int j = 0; j < lista_jogadores.getTam(); j++) // Jogadores
 	{
 		Entidades::Personagens::Jogador* jog = static_cast<Entidades::Personagens::Jogador*>(lista_jogadores.getEntidade(j));
 		bool colidiu = false;
 
-		for (int i = 0; i < lista_obst.getTam(); i++) 
+		for (int i = 0; i < lista_obst.getTam(); i++)
 		{
 			Entidades::Obstaculos::Obstaculo* obst = static_cast<Entidades::Obstaculos::Obstaculo*>(lista_obst.getEntidade(i));
 			if (verificarColisao(jog, obst) && jog->getAtivo())
 			{
-				obst->interagir(jog);
+
+				obst->obstacularizar(jog);
 				colidiu = true;
-				break;
 			}
 		}
-
 		if (!colidiu)
 		{
 			jog->setNaSuperficie(false);
 		}
 	}
 
-
-	for (int i = 0; i < lista_obst.getTam(); i++) 
+	for (int i = 0; i < lista_obst.getTam(); i++) // Obstaculos
 	{
 		Entidades::Obstaculos::Obstaculo* obst1 = static_cast<Entidades::Obstaculos::Obstaculo*>(lista_obst.getEntidade(i));
+		bool colidiu = false;
 
 		// Verifica colisão com todos os outros obstáculos 
-		for (int j = 0; j < lista_obst.getTam(); j++) 
+		for (int j = 0; j < lista_obst.getTam(); j++)
 		{
 			if (i == j)
 			{
@@ -201,32 +194,35 @@ void GerenciadorColisao::colisaoObstaculosEntidades()
 			}
 			Entidades::Obstaculos::Obstaculo* obst2 = static_cast<Entidades::Obstaculos::Obstaculo*>(lista_obst.getEntidade(j));
 
-			if (verificarColisao(obst1, obst2)) 
+			if (verificarColisao(obst1, obst2))
 			{
-				obst1->interagir(obst2);
+				obst1->obstacularizar(obst2);
+				colidiu = true;
+			}
+			if (!colidiu)
+			{
+				obst2->setNaSuperficie(false);
 			}
 		}
-
 	}
-
 }
 
-float GerenciadorColisao::getDeltaX()
+float GerenciadorColisao::getDeltaX()const
 {
 	return delta_x;
 }
 
-float GerenciadorColisao::getDeltaY()
+float GerenciadorColisao::getDeltaY()const
 {
 	return delta_y;
 }
 
-float GerenciadorColisao::getIntersectX()
+float GerenciadorColisao::getIntersectX()const
 {
 	return intersect_x;
 }
 
-float GerenciadorColisao::getIntersectY()
+float GerenciadorColisao::getIntersectY()const
 {
 	return intersect_y;
 }
