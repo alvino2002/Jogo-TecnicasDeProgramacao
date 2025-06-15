@@ -1,26 +1,29 @@
 #pragma once
-#include "Ente.h"
-#include "Cavaleiro.h"
+#include "Interface.h"
 #include "GerenciadorGrafico.h"
-#include "GerenciadorEvento.h"
 #include <string>
+
 
 namespace Masmorra
 {
-    class Ranking : public Ente
+    namespace Interfaces
     {
-    private:
-        std::string nomeJogador;
-        sf::Font fonte;
-        sf::Text textoNome;
-        int pontuacao;
+        class Ranking : public Interface
+        {
+        private:
+            std::string nome;
+            int pontuacao;
+            std::vector<std::pair<std::string, int>> ranking;
+            sf::RenderWindow* janela;
+            sf::Text titulo;
 
-
-    public:
-        Ranking(int pontuacao);
-        ~Ranking();
-        void executar();
-        static void salvar(int pontuacao, const std::string& nome);
-
-    };
+        public:
+            Ranking(int id);
+            ~Ranking();
+            void executar();
+            void inicializar();
+            void carregarRanking();
+            static void salvar(int pontuacao, const std::string& nome);
+        };
+    }
 }
