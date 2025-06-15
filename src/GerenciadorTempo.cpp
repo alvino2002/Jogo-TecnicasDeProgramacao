@@ -3,36 +3,36 @@
 
 using namespace Masmorra::Gerenciadores;
 
-	GerenciadorTempo::GerenciadorTempo():
-		deltaTempo(),
-		relogio()
-	{
-	}
+GerenciadorTempo::GerenciadorTempo() :
+	deltaTempo(),
+	relogio()
+{
+}
 
-	GerenciadorTempo::~GerenciadorTempo()
-	{
-	}
+GerenciadorTempo::~GerenciadorTempo()
+{
+}
 
-	GerenciadorTempo* GerenciadorTempo::getGerenciadorTempo()
+GerenciadorTempo* GerenciadorTempo::getGerenciadorTempo()
+{
+	if (pGerenciadorTempo == nullptr)
 	{
-		if (pGerenciadorTempo == nullptr)
-		{
-			pGerenciadorTempo = new GerenciadorTempo();
-		}
-		else
-		{
-			return pGerenciadorTempo;
-		}
+		pGerenciadorTempo = new GerenciadorTempo();
 	}
-
-	void GerenciadorTempo::atualizar()
+	else
 	{
-		deltaTempo = relogio.restart().asSeconds();
+		return pGerenciadorTempo;
 	}
+}
 
-	float GerenciadorTempo::getDeltaTempo() const
-	{
-		return deltaTempo;
-	}
+void GerenciadorTempo::reiniciar()
+{
+	deltaTempo = relogio.restart().asSeconds();
+}
 
-	GerenciadorTempo* GerenciadorTempo::pGerenciadorTempo = nullptr;
+float GerenciadorTempo::getDeltaTempo() const
+{
+	return deltaTempo;
+}
+
+GerenciadorTempo* GerenciadorTempo::pGerenciadorTempo = nullptr;
