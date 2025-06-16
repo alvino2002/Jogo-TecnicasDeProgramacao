@@ -27,7 +27,7 @@ namespace Masmorra
 					float pulo
 				);
 				~Jogador();
-				virtual void executar() = 0;;
+				virtual void executar() = 0;
 				void sofrerDano(int d);
 				void invulnerabilizar();
 				void setInvulneravel(bool imune);
